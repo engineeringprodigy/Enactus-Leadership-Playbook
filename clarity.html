@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Clarity — Enactus Leadership Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --gold: #c9a84c;
+    --gold-light: #e8cc80;
+    --green: #4c9a6b;
+    --blue: #4c7ac9;
+    --purple: #7a4cc9;
+    --muted: #888;
+    --border: rgba(201,168,76,0.25);
+    --pad: 60px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV BAR ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .topbar-back {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+  }
+  .topbar-back:hover { opacity: 0.7; }
+  .topbar-back::before { content: '←'; font-size: 14px; }
+  .topbar-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .topbar-nav {
+    display: flex;
+    gap: 6px;
+  }
+  .topbar-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.5);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .topbar-nav a:hover { color: var(--white); border-color: var(--border); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px var(--pad) 80px;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 9vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(245,242,236,0.6);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    color: rgba(245,242,236,0.6);
+    text-decoration: none;
+    transition: all 0.2s;
+    background: rgba(201,168,76,0.03);
+  }
+  .hero-pill:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .hero-bg-letter {
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 280px;
+    color: rgba(201,168,76,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── SHARED SECTION STYLES ── */
+  section {
+    padding: 90px var(--pad);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.4; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 0.95;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .section-subtitle {
+    font-size: 15px;
+    color: rgba(245,242,236,0.55);
+    max-width: 600px;
+    margin-bottom: 52px;
+    line-height: 1.7;
+  }
+  .max-w { max-width: 900px; }
+
+  /* ── WHAT / WHY STRIP ── */
+  .intro-strip {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    font-size: 14px;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.75;
+    max-width: 900px;
+  }
+  .intro-strip strong { color: var(--gold); }
+
+  /* ── OKR SECTION ── */
+  .okr-formula {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .okr-formula-block {
+    flex: 1;
+    min-width: 160px;
+    padding: 28px 24px;
+    background: #111;
+  }
+  .okr-formula-block.objective { border-top: 2px solid var(--gold); }
+  .okr-formula-block.kr { border-top: 2px solid var(--blue); }
+  .okr-formula-block.plus {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--muted);
+    background: transparent;
+    padding: 0;
+    min-width: auto;
+  }
+  .okr-formula-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .okr-formula-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .okr-formula-block.objective .okr-formula-name { color: var(--gold); }
+  .okr-formula-block.kr .okr-formula-name { color: #7daae8; }
+  .okr-formula-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+  }
+
+  /* OKR Steps */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .step-card {
+    background: #111;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .step-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 0.85;
+    color: var(--gold);
+    opacity: 0.2;
+    position: absolute;
+    right: 16px;
+    top: 12px;
+  }
+  .step-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .step-card-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.65;
+  }
+
+  /* OKR Example Box */
+  .example-box {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .example-box-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+  }
+  .example-box-body { padding: 24px; }
+  .okr-example-obj {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .okr-example-obj::before {
+    content: 'O';
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 3px 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+  .okr-example-krs { list-style: none; padding-left: 0; }
+  .okr-example-krs li {
+    font-size: 14px;
+    color: rgba(245,242,236,0.65);
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    line-height: 1.5;
+  }
+  .okr-example-krs li:last-child { border-bottom: none; }
+  .okr-example-krs li::before {
+    content: 'KR';
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    background: rgba(76,122,201,0.3);
+    color: #7daae8;
+    padding: 3px 6px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* Bad vs Good */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 12px;
+  }
+  .compare-card {
+    padding: 28px 24px;
+    background: #111;
+  }
+  .compare-card.bad { border-top: 2px solid #c94c4c; }
+  .compare-card.good { border-top: 2px solid var(--green); }
+  .compare-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .compare-card.bad .compare-label { color: #e87d7d; }
+  .compare-card.good .compare-label { color: #7dd9a0; }
+  .compare-list { list-style: none; }
+  .compare-list li {
+    font-size: 14px;
+    color: rgba(245,242,236,0.6);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .compare-list li:last-child { border-bottom: none; }
+  .compare-card.bad .compare-list li::before { content: '✕'; color: #e87d7d; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+  .compare-card.good .compare-list li::before { content: '✓'; color: #7dd9a0; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+
+  /* OKR Pitfalls */
+  .pitfalls-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    max-width: 900px;
+  }
+  .pitfall-card {
+    padding: 24px;
+    background: rgba(201,76,76,0.05);
+    border-left: 2px solid rgba(201,76,76,0.4);
+  }
+  .pitfall-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #e87d7d;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .pitfall-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── ROLES SECTION ── */
+  #roles { background: #0d0d0d; }
+
+  .role-charter {
+    max-width: 900px;
+    background: #111;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .role-charter-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .role-charter-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    background: var(--gold);
+    color: var(--black);
+    font-weight: 700;
+  }
+  .role-charter-body { padding: 28px; }
+  .charter-field {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    align-items: start;
+  }
+  .charter-field:last-child { border-bottom: none; padding-bottom: 0; }
+  .charter-field-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+  .charter-field-value {
+    font-size: 14px;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.65;
+  }
+  .charter-field-value ul {
+    list-style: none;
+    margin-top: 4px;
+  }
+  .charter-field-value ul li {
+    padding: 4px 0;
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .charter-field-value ul li::before { content: '→'; color: var(--gold); opacity: 0.5; flex-shrink: 0; }
+
+  .roles-how-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .roles-how-card {
+    background: #111;
+    padding: 28px 22px;
+  }
+  .roles-how-icon { font-size: 24px; margin-bottom: 14px; }
+  .roles-how-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .roles-how-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  .raci-table {
+    max-width: 900px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+    font-size: 13px;
+    overflow-x: auto;
+    display: block;
+  }
+  .raci-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .raci-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: rgba(245,242,236,0.65);
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .raci-table tr:last-child td { border-bottom: none; }
+  .raci-r { color: var(--gold); font-weight: 700; font-family: 'DM Mono', monospace; }
+  .raci-a { color: #7daae8; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .raci-c { color: #7dd9a0; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .raci-i { color: var(--muted); font-family: 'DM Mono', monospace; }
+  .raci-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    max-width: 900px;
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .raci-note span { color: var(--gold); }
+
+  /* ── SOP SECTION ── */
+  #sop { background: var(--black); }
+
+  .sop-what {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .sop-what-card {
+    padding: 28px 24px;
+    background: #111;
+  }
+  .sop-what-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .sop-what-card:first-child .sop-what-title { color: #e87d7d; }
+  .sop-what-card:last-child .sop-what-title { color: #7dd9a0; }
+  .sop-what-list { list-style: none; }
+  .sop-what-list li {
+    font-size: 13px;
+    color: rgba(245,242,236,0.6);
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 8px;
+  }
+  .sop-what-card:first-child .sop-what-list li::before { content: '✕'; color: #e87d7d; opacity: 0.7; font-size: 11px; flex-shrink: 0; padding-top: 1px; }
+  .sop-what-card:last-child .sop-what-list li::before { content: '✓'; color: #7dd9a0; opacity: 0.7; font-size: 11px; flex-shrink: 0; padding-top: 1px; }
+
+  /* SOP template */
+  .sop-template {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .sop-template-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sop-template-body { padding: 0; }
+  .sop-section {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .sop-section:last-child { border-bottom: none; }
+  .sop-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .sop-section-content {
+    font-size: 14px;
+    color: rgba(245,242,236,0.65);
+    line-height: 1.7;
+  }
+  .sop-section-content ol {
+    padding-left: 20px;
+    margin-top: 6px;
+  }
+  .sop-section-content ol li {
+    padding: 4px 0;
+    font-size: 13px;
+    color: rgba(245,242,236,0.6);
+  }
+  .sop-section-content .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    background: rgba(201,168,76,0.1);
+    color: var(--gold-light);
+    margin: 2px 3px 2px 0;
+  }
+
+  /* SOP steps flow */
+  .sop-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .sop-step {
+    background: #111;
+    padding: 24px 20px;
+    position: relative;
+  }
+  .sop-step::after {
+    content: '→';
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 16px;
+    z-index: 1;
+  }
+  .sop-step:last-child::after { display: none; }
+  .sop-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--gold);
+    opacity: 0.25;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .sop-step-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .sop-step-desc {
+    font-size: 12px;
+    color: rgba(245,242,236,0.5);
+    line-height: 1.6;
+  }
+
+  /* ── MANTRA STRIPS ── */
+  .mantra {
+    max-width: 900px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 26px 30px;
+    margin-top: 2px;
+  }
+  .mantra-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .mantra-sub {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER / CTA ── */
+  .page-footer {
+    padding: 80px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-left {}
+  .footer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .footer-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 14px 24px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-back-btn:hover { opacity: 0.85; }
+  .footer-back-btn::before { content: '←'; font-size: 14px; }
+  .footer-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .steps-grid, .roles-how-grid, .sop-steps { grid-template-columns: 1fr 1fr; }
+    .compare-grid, .sop-what, .pitfalls-grid { grid-template-columns: 1fr; }
+    .okr-formula { flex-direction: column; }
+    .okr-formula-plus { display: none; }
+    .charter-field { grid-template-columns: 1fr; gap: 6px; }
+    .topbar-nav { display: none; }
+    .sop-step::after { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    :root { --pad: 20px; }
+    section { padding: 56px var(--pad); }
+    .hero { padding: 72px var(--pad) 60px; }
+    .topbar { padding: 0 var(--pad); }
+    .page-footer { padding: 56px var(--pad); }
+
+    .hero h1 { font-size: clamp(46px, 13vw, 64px); }
+    .section-title { font-size: clamp(32px, 10vw, 48px); }
+
+    .steps-grid, .roles-how-grid, .sop-steps { grid-template-columns: 1fr; }
+    .raci-table { font-size: 12px; }
+    .raci-table th, .raci-table td { padding: 9px 12px; }
+    .hero-bg-letter { display: none; }
+    .mantra { padding: 20px 20px; }
+    .mantra-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-back">Back to Playbook</a>
+  <div class="topbar-title">COSE · Clarity</div>
+  <div class="topbar-nav">
+    <a href="#okrs">OKRs</a>
+    <a href="#roles">Roles</a>
+    <a href="#sop">SOPs</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">COSE Framework · C</div>
+  <h1>Building<br><span>Clarity</span></h1>
+  <p class="hero-desc">Clarity is the foundation of every high-performing team. Without it, even the most talented people waste time guessing at goals, stepping on each other's toes, and repeating the same mistakes. This page shows you exactly how to build it.</p>
+  <div class="hero-pills">
+    <a href="#okrs" class="hero-pill">01 · Set clear OKRs</a>
+    <a href="#roles" class="hero-pill">02 · Clarify team roles</a>
+    <a href="#sop" class="hero-pill">03 · Document SOPs</a>
+  </div>
+  <div class="hero-bg-letter">C</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     01 — OKRs
+═══════════════════════════════════════ -->
+<section id="okrs">
+  <div class="section-tag">01</div>
+  <h2 class="section-title">How to Set<br>Clear OKRs</h2>
+  <p class="section-subtitle">OKRs (Objectives and Key Results) turn vague ambitions into measurable outcomes. They answer two questions: <em>where are we going?</em> and <em>how will we know we got there?</em></p>
+
+  <div class="intro-strip">
+    <strong>The rule:</strong> Objectives are qualitative and inspiring — they tell the team <em>what</em> to aim for and <em>why</em> it matters. Key Results are quantitative and binary — at the end of the period, you either hit the number or you didn't. If you can't measure it, it's not a Key Result.
+  </div>
+
+  <!-- Formula -->
+  <div class="okr-formula">
+    <div class="okr-formula-block objective">
+      <div class="okr-formula-label">O — Objective</div>
+      <div class="okr-formula-name">The destination</div>
+      <div class="okr-formula-desc">Inspiring, qualitative, time-bound. Answers "what do we want to achieve and why does it matter?"</div>
+    </div>
+    <div class="okr-formula-block plus">+</div>
+    <div class="okr-formula-block kr">
+      <div class="okr-formula-label">KR — Key Results (2–5)</div>
+      <div class="okr-formula-name">The milestones</div>
+      <div class="okr-formula-desc">Specific, numeric, measurable. Answers "how will we know we've arrived?" Each KR is a clear number to hit.</div>
+    </div>
+    <div class="okr-formula-block plus">=</div>
+    <div class="okr-formula-block objective" style="border-top-color: var(--green);">
+      <div class="okr-formula-label">Result</div>
+      <div class="okr-formula-name" style="color:#7dd9a0;">Focused progress</div>
+      <div class="okr-formula-desc">Everyone knows the goal, owns their piece, and can see if the team is winning or not — in real time.</div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-card-num">1</div>
+      <div class="step-card-title">Pick your Objective</div>
+      <div class="step-card-desc">Choose 1–3 objectives per quarter. Each should be ambitious but achievable. Ask: "If we only accomplished this one thing, would it be a great quarter?"</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">2</div>
+      <div class="step-card-title">Write 2–5 Key Results</div>
+      <div class="step-card-desc">For each objective, write 2–5 measurable outcomes. Every KR must have a number. If you can't attach a metric, turn it into a milestone with a binary yes/no.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">3</div>
+      <div class="step-card-title">Assign an owner</div>
+      <div class="step-card-desc">Every KR needs a single person accountable for it — not a team. That person tracks the number, surfaces blockers, and reports progress weekly.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">4</div>
+      <div class="step-card-title">Share publicly</div>
+      <div class="step-card-desc">OKRs only work if the whole team can see them. Post them somewhere visible. Transparency creates alignment and peer accountability.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">5</div>
+      <div class="step-card-title">Review weekly</div>
+      <div class="step-card-desc">Do a 10-minute OKR check-in each week. Each owner gives a confidence score (0–100%) on hitting their KR. Drop confidence = early warning signal.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-card-num">6</div>
+      <div class="step-card-title">Grade at the end</div>
+      <div class="step-card-desc">At the end of the quarter, score each KR 0–1.0. A 0.7 is a good score — if you're consistently hitting 1.0, your targets weren't ambitious enough.</div>
+    </div>
+  </div>
+
+  <!-- Example -->
+  <div class="example-box">
+    <div class="example-box-header">
+      Real example — Enactus project team, Q3
+    </div>
+    <div class="example-box-body">
+      <div class="okr-example-obj">Build a community launch for our social enterprise that generates real impact and public visibility</div>
+      <ul class="okr-example-krs">
+        <li>Launch the pilot program with at least 30 active community participants by September 30</li>
+        <li>Secure 2 local business or sponsor partnerships contributing $500+ each in resources or funding</li>
+        <li>Achieve an 80%+ satisfaction score from participants in the post-program survey</li>
+        <li>Generate 3 pieces of media coverage (news, social, podcast) documenting the launch</li>
+        <li>Present impact report with measurable outcomes at the national showcase</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Bad vs Good -->
+  <div class="compare-grid">
+    <div class="compare-card bad">
+      <div class="compare-label">✕ &nbsp;Weak OKRs — don't do this</div>
+      <ul class="compare-list">
+        <li>Objective: "Improve our team's performance"</li>
+        <li>KR: "Work harder on outreach this quarter"</li>
+        <li>KR: "Get more people involved in the project"</li>
+        <li>KR: "Try to post more on social media"</li>
+      </ul>
+    </div>
+    <div class="compare-card good">
+      <div class="compare-label">✓ &nbsp;Strong OKRs — do this instead</div>
+      <ul class="compare-list">
+        <li>Objective: "Make our community program impossible to ignore by December"</li>
+        <li>KR: "Onboard 50 active participants with 70%+ retention"</li>
+        <li>KR: "Run 4 events with avg. 25 attendees each"</li>
+        <li>KR: "Hit 500 newsletter subscribers from zero"</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Pitfalls -->
+  <div style="max-width:900px; margin-top:40px; margin-bottom:8px;">
+    <div class="section-tag" style="margin-bottom:20px;">Common mistakes</div>
+  </div>
+  <div class="pitfalls-grid">
+    <div class="pitfall-card">
+      <div class="pitfall-title">Too many OKRs</div>
+      <div class="pitfall-desc">More than 3 objectives per quarter means nothing is truly a priority. Everything important can't be the most important thing.</div>
+    </div>
+    <div class="pitfall-card">
+      <div class="pitfall-title">Activity-based KRs</div>
+      <div class="pitfall-desc">"Run 10 meetings" is an activity, not a result. KRs measure outcomes, not effort. Ask: "What changes in the world if we do this?"</div>
+    </div>
+    <div class="pitfall-card">
+      <div class="pitfall-title">Set-and-forget</div>
+      <div class="pitfall-desc">OKRs with no weekly check-in become wallpaper. The magic is in the regular review — that's what keeps teams honest and on track.</div>
+    </div>
+    <div class="pitfall-card">
+      <div class="pitfall-title">Playing it safe</div>
+      <div class="pitfall-desc">If your team hits 100% of KRs every quarter, your targets are too easy. Good OKRs should feel slightly uncomfortable to commit to.</div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">Clarity is not a document. It's a habit.</div>
+    <div class="mantra-sub">Setting OKRs once and never reviewing them is worse than not having them — it breeds cynicism. Make them a living tool, not a filing exercise.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     02 — ROLES
+═══════════════════════════════════════ -->
+<section id="roles">
+  <div class="section-tag">02</div>
+  <h2 class="section-title">How to Clarify<br>Team Roles</h2>
+  <p class="section-subtitle">Role confusion is one of the most common hidden killers of team performance. When people don't know what they own — or who owns what — tasks fall through the cracks, effort is duplicated, and conflict brews.</p>
+
+  <div class="intro-strip">
+    <strong>The fix:</strong> For every seat on your team, create a one-page Role Charter. It should fit on a single page, take under 30 minutes to write, and be visible to everyone. If your team can't describe each other's roles in one sentence, you have a clarity problem.
+  </div>
+
+  <!-- How to do it -->
+  <div class="roles-how-grid">
+    <div class="roles-how-card">
+      <div class="roles-how-icon">📋</div>
+      <div class="roles-how-title">Write the charter</div>
+      <div class="roles-how-desc">For each role, document: the mission of the role in one sentence, the 3–5 core responsibilities, what decisions they can make alone, and who they report to and collaborate with.</div>
+    </div>
+    <div class="roles-how-card">
+      <div class="roles-how-icon">🤝</div>
+      <div class="roles-how-title">Co-create with the person</div>
+      <div class="roles-how-desc">Don't write role charters alone and hand them down. Sit with the person who holds the role and build it together — they'll know things you don't, and they'll own it more if they wrote it.</div>
+    </div>
+    <div class="roles-how-card">
+      <div class="roles-how-icon">🔄</div>
+      <div class="roles-how-title">Review every semester</div>
+      <div class="roles-how-desc">Teams evolve. Roles shift. Block 30 minutes each semester to review every role charter together. Outdated charters are almost as bad as no charters at all.</div>
+    </div>
+  </div>
+
+  <!-- Role Charter Example -->
+  <div class="role-charter">
+    <div class="role-charter-header">
+      Role Charter — Example <span class="role-charter-badge">TEMPLATE</span>
+    </div>
+    <div class="role-charter-body">
+      <div class="charter-field">
+        <div class="charter-field-label">Role Title</div>
+        <div class="charter-field-value">Head of Community Outreach</div>
+      </div>
+      <div class="charter-field">
+        <div class="charter-field-label">Mission</div>
+        <div class="charter-field-value">Build and sustain the external relationships that make our program visible, trusted, and growing in the community.</div>
+      </div>
+      <div class="charter-field">
+        <div class="charter-field-label">Core Responsibilities</div>
+        <div class="charter-field-value">
+          <ul>
+            <li>Own all external partner and community stakeholder relationships</li>
+            <li>Plan and execute at least 2 community engagement events per semester</li>
+            <li>Track outreach metrics and report to the team lead bi-weekly</li>
+            <li>Manage the outreach budget and document all expenses</li>
+            <li>Onboard and brief any external volunteers or guests</li>
+          </ul>
+        </div>
+      </div>
+      <div class="charter-field">
+        <div class="charter-field-label">Decisions They Own</div>
+        <div class="charter-field-value">
+          <ul>
+            <li>Which partners and organizations to contact or prioritize</li>
+            <li>How outreach events are structured and promoted</li>
+            <li>Content and tone of external communications</li>
+          </ul>
+        </div>
+      </div>
+      <div class="charter-field">
+        <div class="charter-field-label">Escalate To</div>
+        <div class="charter-field-value">Team Lead — for any commitment over $200, new formal partnerships, or conflicts with external stakeholders</div>
+      </div>
+      <div class="charter-field">
+        <div class="charter-field-label">Works Closely With</div>
+        <div class="charter-field-value">Marketing Lead (content), Project Manager (event logistics), Finance Lead (budget approvals)</div>
+      </div>
+      <div class="charter-field">
+        <div class="charter-field-label">Success Looks Like</div>
+        <div class="charter-field-value">At least 3 active community partnerships this semester, 2 events run with 80%+ attendance, and outreach KRs hit on time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RACI -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">Bonus tool — The RACI matrix</div>
+    <p style="font-size:14px; color:rgba(245,242,236,0.6); line-height:1.7; margin-bottom:20px;">When multiple people are involved in a task or decision, use a RACI to remove ambiguity about who does what.</p>
+  </div>
+
+  <table class="raci-table">
+    <thead>
+      <tr>
+        <th>Task / Decision</th>
+        <th>Team Lead</th>
+        <th>Project Mgr</th>
+        <th>Outreach Lead</th>
+        <th>Marketing Lead</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Set semester OKRs</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td><span class="raci-c">C</span></td>
+      </tr>
+      <tr>
+        <td>Plan community event</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-c">C</span></td>
+      </tr>
+      <tr>
+        <td>Approve new partnership</td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-i">I</span></td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+      <tr>
+        <td>Publish social content</td>
+        <td><span class="raci-i">I</span></td>
+        <td><span class="raci-i">I</span></td>
+        <td><span class="raci-c">C</span></td>
+        <td><span class="raci-r">R</span></td>
+      </tr>
+      <tr>
+        <td>Weekly team check-in</td>
+        <td><span class="raci-a">A</span></td>
+        <td><span class="raci-r">R</span></td>
+        <td><span class="raci-i">I</span></td>
+        <td><span class="raci-i">I</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="raci-note">
+    <span>R</span> = Responsible (does the work) &nbsp;·&nbsp;
+    <span>A</span> = Accountable (owns the outcome) &nbsp;·&nbsp;
+    <span>C</span> = Consulted (input needed) &nbsp;·&nbsp;
+    <span>I</span> = Informed (kept in the loop)
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">If two people think they own the same thing, nobody owns it.</div>
+    <div class="mantra-sub">Every task, project, and decision needs exactly one accountable person. Not a team. Not "we." One person.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     03 — SOPs
+═══════════════════════════════════════ -->
+<section id="sop">
+  <div class="section-tag">03</div>
+  <h2 class="section-title">How to Document<br>Simple SOPs</h2>
+  <p class="section-subtitle">A Standard Operating Procedure (SOP) is a step-by-step document that explains how to complete a recurring task — so that anyone on the team can do it, not just the person who figured it out first.</p>
+
+  <div class="intro-strip">
+    <strong>The rule of thumb:</strong> If you've done a task more than once and you'll do it again — document it. The goal isn't a perfect manual. It's a good-enough guide that saves your future self (and your teammates) from starting from scratch every single time.
+  </div>
+
+  <!-- SOP vs No SOP -->
+  <div class="sop-what">
+    <div class="sop-what-card">
+      <div class="sop-what-title">Without SOPs</div>
+      <ul class="sop-what-list">
+        <li>Knowledge lives in one person's head</li>
+        <li>Every handover is a game of telephone</li>
+        <li>New members take weeks to get up to speed</li>
+        <li>The same mistakes repeat every semester</li>
+        <li>The team can't scale — it depends on one expert</li>
+      </ul>
+    </div>
+    <div class="sop-what-card">
+      <div class="sop-what-title">With SOPs</div>
+      <ul class="sop-what-list">
+        <li>Anyone can pick up any task without asking</li>
+        <li>Onboarding takes days, not weeks</li>
+        <li>Institutional knowledge survives team turnover</li>
+        <li>Mistakes get fixed once — in the doc, for everyone</li>
+        <li>The team scales because the system does the teaching</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- How to write one -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:16px;">How to create one in 5 steps</div>
+  </div>
+  <div class="sop-steps">
+    <div class="sop-step">
+      <div class="sop-step-num">01</div>
+      <div class="sop-step-title">Pick the task</div>
+      <div class="sop-step-desc">Choose any task you repeat. Start with the ones that trip people up most or take the longest to explain.</div>
+    </div>
+    <div class="sop-step">
+      <div class="sop-step-num">02</div>
+      <div class="sop-step-title">Do it once, out loud</div>
+      <div class="sop-step-desc">Complete the task while narrating every step. Record it or write as you go — don't try to remember it afterward.</div>
+    </div>
+    <div class="sop-step">
+      <div class="sop-step-num">03</div>
+      <div class="sop-step-title">Write the steps</div>
+      <div class="sop-step-desc">Turn your narration into a numbered list. Use plain language. One action per step. Add screenshots or examples where helpful.</div>
+    </div>
+    <div class="sop-step">
+      <div class="sop-step-num">04</div>
+      <div class="sop-step-title">Test it with someone new</div>
+      <div class="sop-step-desc">Give the SOP to someone who's never done the task. Watch them follow it. Anywhere they get stuck — fix the doc.</div>
+    </div>
+  </div>
+
+  <!-- SOP Template -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">SOP Template — Example</div>
+  </div>
+  <div class="sop-template">
+    <div class="sop-template-header">
+      SOP: How to onboard a new Enactus team member
+      <span style="font-size:10px; padding:3px 8px; background:var(--gold); color:var(--black); font-weight:700;">EXAMPLE</span>
+    </div>
+    <div class="sop-template-body">
+      <div class="sop-section">
+        <div class="sop-section-label">Purpose</div>
+        <div class="sop-section-content">Ensure every new member is set up with the right access, context, and connections within their first week — so they can contribute from day one.</div>
+      </div>
+      <div class="sop-section">
+        <div class="sop-section-label">Owner</div>
+        <div class="sop-section-content">Team Lead or designated Onboarding Lead. Updated by: whoever finds a gap or error.</div>
+      </div>
+      <div class="sop-section">
+        <div class="sop-section-label">Trigger</div>
+        <div class="sop-section-content">A new member has been confirmed and has accepted their role.</div>
+      </div>
+      <div class="sop-section">
+        <div class="sop-section-label">Tools needed</div>
+        <div class="sop-section-content">
+          <span class="tag">Google Drive</span>
+          <span class="tag">Slack / WhatsApp</span>
+          <span class="tag">Notion / Docs</span>
+          <span class="tag">Calendar invite</span>
+        </div>
+      </div>
+      <div class="sop-section">
+        <div class="sop-section-label">Steps</div>
+        <div class="sop-section-content">
+          <ol>
+            <li>Send a welcome message within 24 hours of their confirmation — introduce yourself and share excitement</li>
+            <li>Add them to the team Slack/WhatsApp group and tag them in a welcome message</li>
+            <li>Share access to the team Google Drive folder (add their email directly, don't just send a link)</li>
+            <li>Send them the Team Handbook or Onboarding Doc — ask them to read sections 1–3 before their first meeting</li>
+            <li>Schedule a 1:1 intro call within the first 3 days — use this call to cover their role, the team's OKRs, and to answer questions</li>
+            <li>Pair them with a buddy (an existing team member) for their first 2 weeks</li>
+            <li>Add them to the team meeting calendar invite and introduce them at the next team call</li>
+            <li>Check in after week 1: ask how they're settling in and if anything is unclear</li>
+          </ol>
+        </div>
+      </div>
+      <div class="sop-section">
+        <div class="sop-section-label">Definition of done</div>
+        <div class="sop-section-content">The new member has attended their first team meeting, has access to all tools, has completed their 1:1, and can describe their role and the team's current OKRs.</div>
+      </div>
+      <div class="sop-section">
+        <div class="sop-section-label">Last updated</div>
+        <div class="sop-section-content">May 2026 — review each semester start</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div style="max-width:900px; margin-bottom:8px;">
+    <div class="section-tag" style="margin-bottom:20px;">Tips for keeping SOPs alive</div>
+  </div>
+  <div class="pitfalls-grid" style="margin-bottom:0;">
+    <div class="pitfall-card" style="border-left-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04);">
+      <div class="pitfall-title" style="color:var(--gold-light);">Keep them short</div>
+      <div class="pitfall-desc">A one-page SOP that people actually read beats a 10-page manual no one opens. Aim for under 20 steps for any single task.</div>
+    </div>
+    <div class="pitfall-card" style="border-left-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04);">
+      <div class="pitfall-title" style="color:var(--gold-light);">Store them in one place</div>
+      <div class="pitfall-desc">Every SOP goes in the same shared folder — not someone's personal drive, not in a Slack thread. One source of truth, always.</div>
+    </div>
+    <div class="pitfall-card" style="border-left-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04);">
+      <div class="pitfall-title" style="color:var(--gold-light);">Update when things break</div>
+      <div class="pitfall-desc">When someone follows an SOP and gets stuck, fix the doc immediately. An SOP that leads people astray is worse than none at all.</div>
+    </div>
+    <div class="pitfall-card" style="border-left-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.04);">
+      <div class="pitfall-title" style="color:var(--gold-light);">Name them clearly</div>
+      <div class="pitfall-desc">Use plain names like "SOP: How to post on Instagram" not "Social Media Guidelines v2 Final." People should find the doc before they even open it.</div>
+    </div>
+  </div>
+
+  <div class="mantra" style="margin-top:40px;">
+    <div class="mantra-title">Document it once. Save everyone hours, forever.</div>
+    <div class="mantra-sub">The best time to write an SOP is while you're doing the task for the second time. The worst time is after the only person who knows how to do it has left the team.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <div class="footer-left">
+    <div class="footer-label">You're done with Clarity</div>
+    <a href="index.html" class="footer-back-btn">Back to Full Playbook</a>
+  </div>
+  <div class="footer-date">Enactus Leadership Summit · May 2026</div>
+</div>
+
+</body>
+</html>
