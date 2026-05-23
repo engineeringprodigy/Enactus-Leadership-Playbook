@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Ownership — Enactus Leadership Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --gold: #c9a84c;
+    --gold-light: #e8cc80;
+    --green: #4c9a6b;
+    --blue: #4c7ac9;
+    --purple: #7a4cc9;
+    --red: #c94c4c;
+    --muted: #888;
+    --border: rgba(201,168,76,0.25);
+    --pad: 60px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV BAR ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .topbar-back {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+  }
+  .topbar-back:hover { opacity: 0.7; }
+  .topbar-back::before { content: '←'; font-size: 14px; }
+  .topbar-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .topbar-nav {
+    display: flex;
+    gap: 6px;
+  }
+  .topbar-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.5);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .topbar-nav a:hover { color: var(--white); border-color: var(--border); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px var(--pad) 80px;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(76,122,201,0.07) 0%, transparent 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 9vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(245,242,236,0.6);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    color: rgba(245,242,236,0.6);
+    text-decoration: none;
+    transition: all 0.2s;
+    background: rgba(201,168,76,0.03);
+  }
+  .hero-pill:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .hero-bg-letter {
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 280px;
+    color: rgba(76,122,201,0.05);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── SHARED SECTION STYLES ── */
+  section {
+    padding: 90px var(--pad);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.4; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 0.95;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .section-subtitle {
+    font-size: 15px;
+    color: rgba(245,242,236,0.55);
+    max-width: 620px;
+    margin-bottom: 52px;
+    line-height: 1.7;
+  }
+
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    font-size: 14px;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.75;
+    max-width: 900px;
+  }
+  .intro-strip strong { color: var(--gold); }
+
+  /* ── RACI SECTION ── */
+  #raci { background: var(--black); }
+
+  /* What/Why ownership cards */
+  .ownership-why {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 48px;
+  }
+  .ownership-why-card {
+    background: #111;
+    padding: 28px 24px;
+    border-top: 2px solid var(--blue);
+  }
+  .ownership-why-icon { font-size: 26px; margin-bottom: 14px; }
+  .ownership-why-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .ownership-why-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  /* RACI formula */
+  .raci-formula {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .raci-letter-card {
+    padding: 32px 24px;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+  }
+  .raci-letter-card.r { border-top: 2px solid var(--gold); }
+  .raci-letter-card.a { border-top: 2px solid var(--blue); }
+  .raci-letter-card.c { border-top: 2px solid var(--green); }
+  .raci-letter-card.i { border-top: 2px solid var(--muted); }
+  .raci-bg-letter {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    line-height: 1;
+    opacity: 0.08;
+  }
+  .raci-letter-card.r .raci-bg-letter { color: var(--gold); }
+  .raci-letter-card.a .raci-bg-letter { color: var(--blue); }
+  .raci-letter-card.c .raci-bg-letter { color: var(--green); }
+  .raci-letter-card.i .raci-bg-letter { color: var(--muted); }
+  .raci-letter-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .raci-letter-card.r .raci-letter-label { color: var(--gold); }
+  .raci-letter-card.a .raci-letter-label { color: #7daae8; }
+  .raci-letter-card.c .raci-letter-label { color: #7dd9a0; }
+  .raci-letter-card.i .raci-letter-label { color: var(--muted); }
+  .raci-letter-name {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .raci-letter-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .raci-letter-question {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(245,242,236,0.4);
+    font-style: italic;
+    line-height: 1.5;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 12px;
+  }
+
+  /* RACI rules */
+  .raci-rules {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .raci-rule-card {
+    padding: 24px;
+    background: rgba(201,168,76,0.04);
+    border-left: 2px solid var(--border);
+  }
+  .raci-rule-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+  .raci-rule-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  /* RACI table */
+  .raci-wrap { max-width: 900px; overflow-x: auto; margin-bottom: 12px; }
+  .raci-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 600px;
+  }
+  .raci-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+    padding: 13px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .raci-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: rgba(245,242,236,0.65);
+    vertical-align: middle;
+  }
+  .raci-table tr:last-child td { border-bottom: none; }
+  .raci-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .tag-r { color: var(--gold); font-weight: 700; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .tag-a { color: #7daae8; font-weight: 700; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .tag-c { color: #7dd9a0; font-weight: 700; font-family: 'DM Mono', monospace; font-size: 12px; }
+  .tag-i { color: var(--muted); font-family: 'DM Mono', monospace; font-size: 12px; }
+  .raci-legend {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    max-width: 900px;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    padding: 14px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .raci-legend span { color: var(--gold); margin-right: 4px; }
+
+  /* How to build RACI steps */
+  .build-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .build-step {
+    background: #111;
+    padding: 26px 22px;
+    position: relative;
+  }
+  .build-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--gold);
+    opacity: 0.18;
+    line-height: 0.9;
+    margin-bottom: 10px;
+  }
+  .build-step-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .build-step-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  /* ── 1:1s SECTION ── */
+  #oneones { background: #0d0d0d; }
+
+  /* Why 1:1s matter */
+  .oneone-why {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .oneone-why-card {
+    padding: 28px 24px;
+    background: #111;
+  }
+  .oneone-why-card.bad { border-top: 2px solid var(--red); }
+  .oneone-why-card.good { border-top: 2px solid var(--green); }
+  .oneone-why-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .oneone-why-card.bad .oneone-why-label { color: #e87d7d; }
+  .oneone-why-card.good .oneone-why-label { color: #7dd9a0; }
+  .oneone-list { list-style: none; }
+  .oneone-list li {
+    font-size: 14px;
+    color: rgba(245,242,236,0.6);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .oneone-list li:last-child { border-bottom: none; }
+  .oneone-why-card.bad .oneone-list li::before { content: '✕'; color: #e87d7d; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+  .oneone-why-card.good .oneone-list li::before { content: '✓'; color: #7dd9a0; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+
+  /* Question cards */
+  .question-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .question-card {
+    background: #111;
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .question-card.featured {
+    border: 1px solid var(--gold);
+    background: rgba(201,168,76,0.06);
+    grid-column: 1 / -1;
+  }
+  .question-card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .question-card.featured .question-card-tag { color: var(--gold); }
+  .question-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+  .question-card.featured .question-text {
+    font-size: 22px;
+  }
+  .question-why {
+    font-size: 13px;
+    color: rgba(245,242,236,0.5);
+    line-height: 1.65;
+  }
+  .question-card.featured .question-why { font-size: 14px; color: rgba(245,242,236,0.65); }
+  .question-bg {
+    position: absolute;
+    right: 16px;
+    bottom: 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 60px;
+    color: rgba(201,168,76,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* 1:1 structure */
+  .oneone-structure {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .oneone-structure-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .oneone-block {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: start;
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    gap: 20px;
+  }
+  .oneone-block:last-child { border-bottom: none; }
+  .oneone-block-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    padding-top: 2px;
+  }
+  .oneone-block-content {}
+  .oneone-block-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .oneone-block-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+  }
+  .oneone-block-questions {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .oneone-block-questions li {
+    font-size: 13px;
+    color: rgba(245,242,236,0.6);
+    padding: 5px 0;
+    display: flex;
+    gap: 8px;
+    line-height: 1.5;
+  }
+  .oneone-block-questions li::before { content: '→'; color: var(--gold); opacity: 0.5; flex-shrink: 0; }
+
+  /* ── SOLVE IT SECTION ── */
+  #solveit { background: var(--black); }
+
+  /* Spectrum */
+  .spectrum {
+    max-width: 900px;
+    background: #111;
+    padding: 32px 28px;
+    margin-bottom: 40px;
+    border-top: 2px solid var(--blue);
+  }
+  .spectrum-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .spectrum-bar {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 16px;
+  }
+  .spectrum-item {
+    padding: 14px 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .spectrum-item.level-1 { background: rgba(201,76,76,0.15); color: #e87d7d; }
+  .spectrum-item.level-2 { background: rgba(201,76,76,0.08); color: rgba(245,242,236,0.6); }
+  .spectrum-item.level-3 { background: rgba(201,168,76,0.10); color: rgba(245,242,236,0.7); }
+  .spectrum-item.level-4 { background: rgba(76,154,107,0.10); color: rgba(245,242,236,0.7); }
+  .spectrum-item.level-5 { background: rgba(76,154,107,0.20); color: #7dd9a0; }
+  .spectrum-item-label {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.6;
+  }
+  .spectrum-arrows {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* The rule cards */
+  .rule-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .rule-card {
+    padding: 32px 26px;
+    background: #111;
+  }
+  .rule-card-icon { font-size: 28px; margin-bottom: 16px; }
+  .rule-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .rule-card-desc {
+    font-size: 14px;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+  .rule-card-example {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.07);
+    border-left: 2px solid var(--gold);
+    padding: 12px 14px;
+    line-height: 1.6;
+  }
+
+  /* How to implement */
+  .implement-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .impl-step {
+    background: #111;
+    padding: 26px 22px;
+  }
+  .impl-step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 0.9;
+    margin-bottom: 10px;
+  }
+  .impl-step-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .impl-step-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  /* Scenarios */
+  .scenarios {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .scenarios-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .scenario:last-child { border-bottom: none; }
+  .scenario-side {
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .scenario-side.before {
+    border-right: 1px solid rgba(255,255,255,0.05);
+    background: rgba(201,76,76,0.03);
+  }
+  .scenario-side.after { background: rgba(76,154,107,0.03); }
+  .scenario-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .scenario-side.before .scenario-label { color: #e87d7d; }
+  .scenario-side.after .scenario-label { color: #7dd9a0; }
+  .scenario-text { color: rgba(245,242,236,0.65); font-style: italic; }
+
+  /* ── MANTRA ── */
+  .mantra {
+    max-width: 900px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 26px 30px;
+    margin-top: 2px;
+  }
+  .mantra-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .mantra-sub {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    padding: 80px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .footer-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 14px 24px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-back-btn:hover { opacity: 0.85; }
+  .footer-back-btn::before { content: '←'; font-size: 14px; }
+  .footer-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .raci-formula { grid-template-columns: 1fr 1fr; }
+    .ownership-why { grid-template-columns: 1fr; }
+    .raci-rules { grid-template-columns: 1fr; }
+    .build-steps { grid-template-columns: 1fr 1fr; }
+    .oneone-why { grid-template-columns: 1fr; }
+    .question-grid { grid-template-columns: 1fr; }
+    .question-card.featured { grid-column: 1 / -1; }
+    .rule-cards { grid-template-columns: 1fr; }
+    .implement-steps { grid-template-columns: 1fr 1fr; }
+    .scenario { grid-template-columns: 1fr; }
+    .scenario-side.before { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .topbar-nav { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    :root { --pad: 20px; }
+    section { padding: 56px var(--pad); }
+    .hero { padding: 72px var(--pad) 60px; }
+    .topbar { padding: 0 var(--pad); }
+    .page-footer { padding: 56px var(--pad); }
+    .hero h1 { font-size: clamp(46px, 13vw, 64px); }
+    .section-title { font-size: clamp(32px, 10vw, 48px); }
+    .raci-formula { grid-template-columns: 1fr; }
+    .build-steps { grid-template-columns: 1fr; }
+    .implement-steps { grid-template-columns: 1fr; }
+    .spectrum-bar { grid-template-columns: 1fr; gap: 1px; }
+    .hero-bg-letter { display: none; }
+    .mantra { padding: 20px; }
+    .mantra-title { font-size: 20px; }
+    .oneone-block { grid-template-columns: 1fr; gap: 4px; }
+    .oneone-block-time { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-back">Back to Playbook</a>
+  <div class="topbar-title">COSE · Ownership</div>
+  <div class="topbar-nav">
+    <a href="#raci">RACI</a>
+    <a href="#oneones">1:1s</a>
+    <a href="#solveit">Solve It Rule</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">COSE Framework · O</div>
+  <h1>Building<br><span>Ownership</span></h1>
+  <p class="hero-desc">Ownership isn't something you assign on a org chart — it's something people feel in their gut. This page gives you three practical frameworks to build a culture where your team solves problems, makes decisions, and takes accountability without waiting to be told.</p>
+  <div class="hero-pills">
+    <a href="#raci" class="hero-pill">01 · RACI Matrix</a>
+    <a href="#oneones" class="hero-pill">02 · Ownership 1:1s</a>
+    <a href="#solveit" class="hero-pill">03 · Solve It Rule</a>
+  </div>
+  <div class="hero-bg-letter">O</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     01 — RACI MATRIX
+═══════════════════════════════════════ -->
+<section id="raci">
+  <div class="section-tag">01</div>
+  <h2 class="section-title">The RACI Matrix</h2>
+  <p class="section-subtitle">RACI is a decision-rights tool that eliminates the two most common ownership failures: nobody knows who owns something, or everybody thinks they do. One clear matrix, zero ambiguity.</p>
+
+  <div class="intro-strip">
+    <strong>The core idea:</strong> For every key task or decision your team makes, assign exactly one letter to each person — R, A, C, or I. If two people share an R, you have a problem. If nobody has an A, you have a bigger problem. The RACI forces clarity before the work starts, not after the blame starts.
+  </div>
+
+  <!-- Why ownership fails -->
+  <div class="ownership-why">
+    <div class="ownership-why-card">
+      <div class="ownership-why-icon">🕳️</div>
+      <div class="ownership-why-title">The gap problem</div>
+      <div class="ownership-why-desc">Two people both assume the other is handling something. Nobody does it. The task falls through the cracks entirely — and both blame each other.</div>
+    </div>
+    <div class="ownership-why-card">
+      <div class="ownership-why-icon">🪢</div>
+      <div class="ownership-why-title">The overlap problem</div>
+      <div class="ownership-why-desc">Two people both think they own the same decision. They pull in different directions, create confusion, and waste energy on internal conflict instead of the actual work.</div>
+    </div>
+    <div class="ownership-why-card">
+      <div class="ownership-why-icon">🗂️</div>
+      <div class="ownership-why-title">The RACI solution</div>
+      <div class="ownership-why-desc">Before work begins, map every decision to one owner. Everyone else's role is defined too — consulted, informed, or simply not involved. No gaps, no overlaps.</div>
+    </div>
+  </div>
+
+  <!-- RACI formula cards -->
+  <div class="raci-formula">
+    <div class="raci-letter-card r">
+      <div class="raci-bg-letter">R</div>
+      <div class="raci-letter-label">R</div>
+      <div class="raci-letter-name">Responsible</div>
+      <div class="raci-letter-desc">The person who does the work. They execute the task and are responsible for getting it done. There can be more than one R, but keep it tight — the more Rs, the less accountability.</div>
+      <div class="raci-letter-question">"Who is actually doing this?"</div>
+    </div>
+    <div class="raci-letter-card a">
+      <div class="raci-bg-letter">A</div>
+      <div class="raci-letter-label">A</div>
+      <div class="raci-letter-name">Accountable</div>
+      <div class="raci-letter-desc">The one person who owns the outcome. They answer for the result — good or bad. There must be exactly one A per task. Never zero. Never two. The A approves the final output.</div>
+      <div class="raci-letter-question">"Who owns this when it's done — or not done?"</div>
+    </div>
+    <div class="raci-letter-card c">
+      <div class="raci-bg-letter">C</div>
+      <div class="raci-letter-label">C</div>
+      <div class="raci-letter-name">Consulted</div>
+      <div class="raci-letter-desc">People whose input is needed before a decision is made. They have expertise or a stake in the outcome. Two-way communication — they give input, the R/A considers it.</div>
+      <div class="raci-letter-question">"Who needs to weigh in before we proceed?"</div>
+    </div>
+    <div class="raci-letter-card i">
+      <div class="raci-bg-letter">I</div>
+      <div class="raci-letter-label">I</div>
+      <div class="raci-letter-name">Informed</div>
+      <div class="raci-letter-desc">People who need to know what happened — but after the fact. One-way communication only. They don't block or shape decisions. They just need to be kept in the loop.</div>
+      <div class="raci-letter-question">"Who needs to know this happened, but doesn't need a say?"</div>
+    </div>
+  </div>
+
+  <!-- Golden rules -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">The golden rules</div>
+  </div>
+  <div class="raci-rules">
+    <div class="raci-rule-card">
+      <div class="raci-rule-title">One A per task. Always.</div>
+      <div class="raci-rule-desc">If two people are accountable for the same outcome, nobody is. Shared accountability is just accountability without consequence. Pick one person and hold them to it.</div>
+    </div>
+    <div class="raci-rule-card">
+      <div class="raci-rule-title">Limit your Rs</div>
+      <div class="raci-rule-desc">Having five people responsible for a task is the same as having none. If your team genuinely needs multiple Rs, split the task into subtasks and give each one its own owner.</div>
+    </div>
+    <div class="raci-rule-card">
+      <div class="raci-rule-title">Don't over-consult</div>
+      <div class="raci-rule-desc">Too many Cs slow everything down. Reserve C for people whose input will genuinely change the output. If they're just being looped in as a courtesy, make them an I.</div>
+    </div>
+    <div class="raci-rule-card">
+      <div class="raci-rule-title">Build it before the project starts</div>
+      <div class="raci-rule-desc">A RACI filled out after conflict has already started is just a post-mortem. Its value is in setting expectations upfront — before anyone assumes anything.</div>
+    </div>
+  </div>
+
+  <!-- Example RACI table -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">Example — Enactus project RACI</div>
+  </div>
+  <div class="raci-wrap">
+    <table class="raci-table">
+      <thead>
+        <tr>
+          <th>Task / Decision</th>
+          <th>Team Lead</th>
+          <th>Project Manager</th>
+          <th>Outreach Lead</th>
+          <th>Marketing Lead</th>
+          <th>Finance Lead</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Set semester OKRs</td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-r">R</span></td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-i">I</span></td>
+        </tr>
+        <tr>
+          <td>Plan community event</td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-r">R</span></td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-i">I</span></td>
+        </tr>
+        <tr>
+          <td>Approve new partnership</td>
+          <td><span class="tag-r">R</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-c">C</span></td>
+        </tr>
+        <tr>
+          <td>Publish social content</td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-i">I</span></td>
+        </tr>
+        <tr>
+          <td>Approve budget spend</td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-r">R</span></td>
+        </tr>
+        <tr>
+          <td>Onboard new members</td>
+          <td><span class="tag-c">C</span></td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-i">I</span></td>
+        </tr>
+        <tr>
+          <td>Weekly team check-in</td>
+          <td><span class="tag-a">A</span></td>
+          <td><span class="tag-r">R</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-i">I</span></td>
+          <td><span class="tag-i">I</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="raci-legend">
+    <span>R</span> Responsible — does the work &nbsp;·&nbsp;
+    <span>A</span> Accountable — owns the outcome &nbsp;·&nbsp;
+    <span>C</span> Consulted — input needed before &nbsp;·&nbsp;
+    <span>I</span> Informed — kept in the loop after
+  </div>
+
+  <!-- How to build one -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">How to build yours in 4 steps</div>
+  </div>
+  <div class="build-steps">
+    <div class="build-step">
+      <div class="build-step-num">01</div>
+      <div class="build-step-title">List your key tasks</div>
+      <div class="build-step-desc">Write down the 8–12 most important recurring tasks or decisions your team makes. Don't list everything — just the ones where ownership confusion has caused problems before.</div>
+    </div>
+    <div class="build-step">
+      <div class="build-step-num">02</div>
+      <div class="build-step-title">List your team members</div>
+      <div class="build-step-desc">Put each person's name or role across the top of the matrix. Keep it to the people who are genuinely involved — not everyone on the team for every task.</div>
+    </div>
+    <div class="build-step">
+      <div class="build-step-num">03</div>
+      <div class="build-step-title">Assign letters together</div>
+      <div class="build-step-desc">Fill it in as a team, not alone. Disagreements during this process are valuable — they surface assumptions that would otherwise cause conflict mid-project.</div>
+    </div>
+    <div class="build-step">
+      <div class="build-step-num">04</div>
+      <div class="build-step-title">Share and revisit</div>
+      <div class="build-step-desc">Post the RACI where everyone can see it. Revisit at the start of each semester or whenever a new project or role is added. A stale RACI is almost as bad as none.</div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">If everyone is accountable, nobody is.</div>
+    <div class="mantra-sub">The RACI isn't bureaucracy — it's respect. It respects people's time by telling them exactly where they're needed and where they're not.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     02 — OWNERSHIP 1:1s
+═══════════════════════════════════════ -->
+<section id="oneones">
+  <div class="section-tag">02</div>
+  <h2 class="section-title">Ownership-Focused<br>1:1s</h2>
+  <p class="section-subtitle">Most 1:1s are just status updates in disguise. Ownership-focused 1:1s are different — they're conversations that actively build someone's sense of agency, confidence, and accountability over time.</p>
+
+  <div class="intro-strip">
+    <strong>The shift:</strong> Instead of asking "what have you been working on?" — which pulls for tasks — ask "what did you <em>decide</em> this week?" and "what are you proud of <em>owning</em>?" These questions reframe the conversation around agency, not activity. Over time, they rewire how your team members see their role.
+  </div>
+
+  <!-- Status vs Ownership -->
+  <div class="oneone-why">
+    <div class="oneone-why-card bad">
+      <div class="oneone-why-label">✕ &nbsp; Status-update 1:1s</div>
+      <ul class="oneone-list">
+        <li>Leader does most of the talking</li>
+        <li>Conversation centres on tasks completed</li>
+        <li>Problems are brought to the leader to solve</li>
+        <li>Member feels managed, not developed</li>
+        <li>Nothing changes week to week</li>
+      </ul>
+    </div>
+    <div class="oneone-why-card good">
+      <div class="oneone-why-label">✓ &nbsp; Ownership-focused 1:1s</div>
+      <ul class="oneone-list">
+        <li>Member does most of the talking</li>
+        <li>Conversation centres on decisions made and problems solved</li>
+        <li>Problems are brought with proposed solutions</li>
+        <li>Member feels trusted and challenged</li>
+        <li>Member grows visibly over the semester</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- The two star questions -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">The two ownership questions</div>
+  </div>
+  <div class="question-grid">
+    <div class="question-card featured">
+      <div class="question-card-tag">⭐ Primary question — ask every single 1:1</div>
+      <div class="question-text">"What did you decide this week — and what did you consider before deciding?"</div>
+      <div class="question-why">This question does two things at once. It tells you whether they're actually making decisions (not just executing tasks), and it surfaces their reasoning so you can coach their judgment — not just their output. If they can't name a decision, that's information too.</div>
+      <div class="question-bg">"</div>
+    </div>
+    <div class="question-card">
+      <div class="question-card-tag">⭐ Secondary question</div>
+      <div class="question-text">"What are you proud of owning this week?"</div>
+      <div class="question-why">Invites them to identify their own wins and reinforce a sense of ownership identity. Over time, this builds the habit of seeing themselves as an owner, not a task-executor.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-card-tag">For development</div>
+      <div class="question-text">"Where did you feel stuck waiting for someone else's approval?"</div>
+      <div class="question-why">Surfaces bottlenecks in your team's decision-making culture. If they're always waiting on you, you may be accidentally creating dependency.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-card-tag">For growth</div>
+      <div class="question-text">"What would you do differently if you had full authority over this?"</div>
+      <div class="question-why">This unlocks their thinking beyond their current scope. It often reveals ideas worth implementing — and it builds the muscles of strategic thinking.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-card-tag">For accountability</div>
+      <div class="question-text">"What commitment did you make last week, and did you keep it?"</div>
+      <div class="question-why">Quietly holds people to their word without confrontation. Starting each 1:1 this way creates a culture where follow-through is the norm, not the exception.</div>
+    </div>
+    <div class="question-card">
+      <div class="question-card-tag">For initiative</div>
+      <div class="question-text">"What problem did you solve before it became my problem?"</div>
+      <div class="question-why">Actively rewards proactive behaviour. When you celebrate this in 1:1s, you get more of it. What gets recognised gets repeated.</div>
+    </div>
+  </div>
+
+  <!-- 1:1 structure -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">A 30-minute ownership 1:1 structure</div>
+  </div>
+  <div class="oneone-structure">
+    <div class="oneone-structure-header">
+      30-minute template <span style="font-size:10px; padding:3px 8px; background:var(--gold); color:var(--black); font-weight:700;">TEMPLATE</span>
+    </div>
+    <div class="oneone-block">
+      <div class="oneone-block-time">0–2 min</div>
+      <div class="oneone-block-content">
+        <div class="oneone-block-title">Check-in</div>
+        <div class="oneone-block-desc">One quick question to open the space. Not about work — about them.</div>
+        <ul class="oneone-block-questions">
+          <li>"How are you actually doing this week — outside of work?"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="oneone-block">
+      <div class="oneone-block-time">2–10 min</div>
+      <div class="oneone-block-content">
+        <div class="oneone-block-title">Ownership review</div>
+        <div class="oneone-block-desc">The core of the meeting. Let them drive — you listen and ask follow-ups.</div>
+        <ul class="oneone-block-questions">
+          <li>"What did you decide this week? What did you consider?"</li>
+          <li>"What are you proud of owning?"</li>
+          <li>"What commitment from last week did you keep?"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="oneone-block">
+      <div class="oneone-block-time">10–20 min</div>
+      <div class="oneone-block-content">
+        <div class="oneone-block-title">Blockers and growth</div>
+        <div class="oneone-block-desc">What's in their way? Where are they waiting unnecessarily? What do they want to own more of?</div>
+        <ul class="oneone-block-questions">
+          <li>"Where did you feel stuck waiting for approval?"</li>
+          <li>"What would you do differently with full authority?"</li>
+          <li>"What do you want to take more ownership of next month?"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="oneone-block">
+      <div class="oneone-block-time">20–28 min</div>
+      <div class="oneone-block-content">
+        <div class="oneone-block-title">Your input</div>
+        <div class="oneone-block-desc">Now you speak. Offer feedback, remove blockers, share context they need, and make any decisions that only you can make.</div>
+      </div>
+    </div>
+    <div class="oneone-block">
+      <div class="oneone-block-time">28–30 min</div>
+      <div class="oneone-block-content">
+        <div class="oneone-block-title">Commitment</div>
+        <div class="oneone-block-desc">Each person names one thing they will do before the next 1:1. Write it down. Open with it next time.</div>
+        <ul class="oneone-block-questions">
+          <li>"What's the one thing you're committing to before we meet again?"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">The best 1:1s make the leader talk less and the team member think more.</div>
+    <div class="mantra-sub">Your job in a 1:1 isn't to report or instruct — it's to coach. Ask more than you tell. Listen more than you speak. The answers reveal more than the updates ever will.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     03 — SOLVE IT RULE
+═══════════════════════════════════════ -->
+<section id="solveit">
+  <div class="section-tag">03</div>
+  <h2 class="section-title">The "Solve It<br>and Tell Me" Rule</h2>
+  <p class="section-subtitle">Most teams default to asking for permission. The Solve It and Tell Me rule flips this — it tells your team to fix problems first, then report back. It builds a culture of action over approval-seeking.</p>
+
+  <div class="intro-strip">
+    <strong>The rule in one line:</strong> "If you encounter a problem within your scope, solve it — then tell me what you did and why." This one sentence, applied consistently, transforms a team of task-executors into a team of decision-makers.
+  </div>
+
+  <!-- The autonomy spectrum -->
+  <div class="spectrum">
+    <div class="spectrum-label">The autonomy spectrum — where does your team sit?</div>
+    <div class="spectrum-bar">
+      <div class="spectrum-item level-1">
+        <div class="spectrum-item-label">Level 1</div>
+        Wait to be told
+      </div>
+      <div class="spectrum-item level-2">
+        <div class="spectrum-item-label">Level 2</div>
+        Ask for permission
+      </div>
+      <div class="spectrum-item level-3">
+        <div class="spectrum-item-label">Level 3</div>
+        Recommend, then act
+      </div>
+      <div class="spectrum-item level-4">
+        <div class="spectrum-item-label">Level 4</div>
+        Act, then report
+      </div>
+      <div class="spectrum-item level-5">
+        <div class="spectrum-item-label">Level 5</div>
+        Fully autonomous
+      </div>
+    </div>
+    <div class="spectrum-arrows">
+      <span>← Dependent</span>
+      <span>The "Solve It" rule targets Level 4</span>
+      <span>Fully owned →</span>
+    </div>
+  </div>
+
+  <!-- How and why -->
+  <div class="rule-cards">
+    <div class="rule-card">
+      <div class="rule-card-icon">🔧</div>
+      <div class="rule-card-title">How it works</div>
+      <div class="rule-card-desc">When a team member encounters a problem within their area of responsibility, they don't bring it to you to solve. They solve it — using their best judgment — and then tell you what they did, what they decided, and why. You respond with feedback, not a fix.</div>
+      <div class="rule-card-example">"I noticed our event venue fell through. I contacted three alternatives, confirmed one for the same date and price, and notified the attendees. Just wanted to loop you in."</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-card-icon">🧠</div>
+      <div class="rule-card-title">Why it works</div>
+      <div class="rule-card-desc">Ownership is a muscle. Every time someone waits for approval on a problem they could have solved, that muscle weakens. Every time they act decisively and it works out, it strengthens. The Solve It rule creates hundreds of small reps each semester that compound into a genuinely autonomous team.</div>
+      <div class="rule-card-example">Leaders who need to approve everything become the bottleneck. Leaders who trust and debrief become multipliers.</div>
+    </div>
+  </div>
+
+  <!-- How to implement -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">How to implement it</div>
+  </div>
+  <div class="implement-steps">
+    <div class="impl-step">
+      <div class="impl-step-num">01</div>
+      <div class="impl-step-title">Define the scope</div>
+      <div class="impl-step-desc">Be explicit about what decisions each person can make alone vs. what requires escalation. Use your RACI as the boundary map. "Solve It" applies within their A and R columns — not beyond them.</div>
+    </div>
+    <div class="impl-step">
+      <div class="impl-step-num">02</div>
+      <div class="impl-step-title">Announce the rule clearly</div>
+      <div class="impl-step-desc">Don't let people discover it by accident. Explicitly tell your team: "From now on, when you hit a problem in your lane — solve it, then tell me. I trust your judgment. I want to hear what you did, not ask you what to do."</div>
+    </div>
+    <div class="impl-step">
+      <div class="impl-step-num">03</div>
+      <div class="impl-step-title">Celebrate the first win</div>
+      <div class="impl-step-desc">The first time someone solves a problem and tells you after, make a big deal of it in the team. Name it. Celebrate it. This signals to everyone else that this behaviour is rewarded, not just tolerated.</div>
+    </div>
+    <div class="impl-step">
+      <div class="impl-step-num">04</div>
+      <div class="impl-step-title">Debrief, don't criticise</div>
+      <div class="impl-step-desc">When someone solves something imperfectly, debrief with curiosity — not judgment. "What led you to that decision? What would you consider next time?" Punishment for imperfect decisions trains people to stop deciding.</div>
+    </div>
+    <div class="impl-step">
+      <div class="impl-step-num">05</div>
+      <div class="impl-step-title">Stop answering solvable questions</div>
+      <div class="impl-step-desc">When someone brings you a problem they could solve themselves, don't solve it. Ask: "What do you think we should do?" Then: "Great — go do that and tell me how it turns out." Redirect consistently.</div>
+    </div>
+    <div class="impl-step">
+      <div class="impl-step-num">06</div>
+      <div class="impl-step-title">Expand scope over time</div>
+      <div class="impl-step-desc">Start with small, low-risk decisions. As people demonstrate good judgment, gradually expand the scope of what they can solve independently. Trust is earned in increments — and given in the same way.</div>
+    </div>
+  </div>
+
+  <!-- Before / After scenarios -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">Before and after — real scenarios</div>
+  </div>
+  <div class="scenarios">
+    <div class="scenarios-header">Same situation. Two cultures.</div>
+    <div class="scenario">
+      <div class="scenario-side before">
+        <div class="scenario-label">✕ Before — permission culture</div>
+        <div class="scenario-text">"Hey, the printer at our event venue is broken and we can't print the sign-in sheets. What should we do?"</div>
+      </div>
+      <div class="scenario-side after">
+        <div class="scenario-label">✓ After — solve it culture</div>
+        <div class="scenario-text">"The printer broke so I sent the sign-in sheet to my phone, set up a QR code at the door, and texted three volunteers to bring their laptops as backup. We're covered."</div>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="scenario-side before">
+        <div class="scenario-label">✕ Before — permission culture</div>
+        <div class="scenario-text">"One of our community partners said they can't make the meeting tomorrow. Should I reschedule the whole thing or keep going without them?"</div>
+      </div>
+      <div class="scenario-side after">
+        <div class="scenario-label">✓ After — solve it culture</div>
+        <div class="scenario-text">"Our partner dropped out so I moved their agenda item to a follow-up call and kept the meeting as planned. I've already sent them a summary invite for next Thursday."</div>
+      </div>
+    </div>
+    <div class="scenario">
+      <div class="scenario-side before">
+        <div class="scenario-label">✕ Before — permission culture</div>
+        <div class="scenario-text">"We're running low on budget for the event. Should I cut the catering or ask for more money?"</div>
+      </div>
+      <div class="scenario-side after">
+        <div class="scenario-label">✓ After — solve it culture</div>
+        <div class="scenario-text">"We were over budget so I renegotiated the catering to a lighter option, saving $180, and reallocated it to the AV setup which was the bigger priority. Finance is updated."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">Stop asking for permission. Start reporting results.</div>
+    <div class="mantra-sub">The most empowering thing a leader can say is: "I trust your judgment. Solve it and tell me what you did." Say it often enough, and eventually — they will.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <div>
+    <div class="footer-label">You're done with Ownership</div>
+    <a href="index.html" class="footer-back-btn">Back to Full Playbook</a>
+  </div>
+  <div class="footer-date">Enactus Leadership Summit · May 2026</div>
+</div>
+
+</body>
+</html>
