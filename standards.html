@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communicating Standards — Enactus Leadership Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --gold: #c9a84c;
+    --gold-light: #e8cc80;
+    --green: #4c9a6b;
+    --blue: #4c7ac9;
+    --purple: #7a4cc9;
+    --red: #c94c4c;
+    --muted: #888;
+    --border: rgba(201,168,76,0.25);
+    --pad: 60px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .topbar-back {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+  }
+  .topbar-back:hover { opacity: 0.7; }
+  .topbar-back::before { content: '←'; font-size: 14px; }
+  .topbar-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .topbar-nav { display: flex; gap: 6px; }
+  .topbar-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.5);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .topbar-nav a:hover { color: var(--white); border-color: var(--border); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px var(--pad) 80px;
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(76,154,107,0.07) 0%, transparent 70%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 9vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(245,242,236,0.6);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    color: rgba(245,242,236,0.6);
+    text-decoration: none;
+    transition: all 0.2s;
+    background: rgba(201,168,76,0.03);
+  }
+  .hero-pill:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .hero-bg-letter {
+    position: absolute;
+    right: -20px;
+    bottom: -30px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 280px;
+    color: rgba(76,154,107,0.05);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 90px var(--pad); border-bottom: 1px solid var(--border); }
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-tag::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.4; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 0.95;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .section-subtitle {
+    font-size: 15px;
+    color: rgba(245,242,236,0.55);
+    max-width: 620px;
+    margin-bottom: 52px;
+    line-height: 1.7;
+  }
+  .intro-strip {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    font-size: 14px;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.75;
+    max-width: 900px;
+  }
+  .intro-strip strong { color: var(--gold); }
+
+  /* ── SHARED COMPONENTS ── */
+  .max-900 { max-width: 900px; }
+
+  .tag-grid {
+    display: grid;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .tag-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .tag-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .card {
+    background: #111;
+    padding: 28px 24px;
+  }
+  .card.border-green { border-top: 2px solid var(--green); }
+  .card.border-gold  { border-top: 2px solid var(--gold); }
+  .card.border-blue  { border-top: 2px solid var(--blue); }
+  .card.border-red   { border-top: 2px solid var(--red); }
+  .card-icon { font-size: 26px; margin-bottom: 14px; }
+  .card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .card-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  .compare-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .label-red  { color: #e87d7d; }
+  .label-green { color: #7dd9a0; }
+  .label-gold  { color: var(--gold-light); }
+
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    font-size: 14px;
+    color: rgba(245,242,236,0.6);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list.check li::before  { content: '✓'; color: #7dd9a0; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+  .bullet-list.cross li::before  { content: '✕'; color: #e87d7d; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+  .bullet-list.arrow li::before  { content: '→'; color: var(--gold); opacity: 0.5; flex-shrink: 0; font-size: 12px; }
+  .bullet-list.dot   li::before  { content: '—'; color: var(--gold); opacity: 0.4; flex-shrink: 0; }
+
+  .step-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    background: #111;
+    padding: 26px 26px;
+    align-items: start;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .step-row:last-child { border-bottom: none; }
+  .step-row-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold);
+    opacity: 0.22;
+    line-height: 1;
+  }
+  .step-row-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 7px;
+    color: var(--white);
+  }
+  .step-row-desc {
+    font-size: 14px;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.65;
+  }
+  .step-row-example {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--gold-light);
+    background: rgba(201,168,76,0.07);
+    border-left: 2px solid var(--gold);
+    padding: 11px 14px;
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  .example-box {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .example-box-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .example-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    background: var(--gold);
+    color: var(--black);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .example-box-body { padding: 28px 24px; }
+
+  .pitfall-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 0;
+  }
+  .pitfall-card {
+    padding: 22px 24px;
+    background: rgba(201,76,76,0.05);
+    border-left: 2px solid rgba(201,76,76,0.35);
+  }
+  .pitfall-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #e87d7d;
+    margin-bottom: 6px;
+  }
+  .pitfall-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.6;
+  }
+
+  .mantra {
+    max-width: 900px;
+    background: var(--gold);
+    color: var(--black);
+    padding: 26px 30px;
+    margin-top: 2px;
+  }
+  .mantra-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+  }
+  .mantra-sub { font-size: 13px; font-weight: 500; line-height: 1.6; }
+
+  /* ── SECTION 1 — ACCEPTANCE CRITERIA ── */
+  #criteria { background: var(--black); }
+
+  .ac-formula {
+    max-width: 900px;
+    background: #111;
+    border-top: 2px solid var(--green);
+    padding: 32px 28px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+  .ac-formula-block {}
+  .ac-formula-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .ac-formula-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .ac-formula-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.5);
+    line-height: 1.55;
+  }
+  .ac-formula-plus {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--muted);
+    opacity: 0.4;
+    text-align: center;
+  }
+
+  /* AC example card */
+  .ac-task-header {
+    background: rgba(76,154,107,0.1);
+    border: 1px solid rgba(76,154,107,0.25);
+    padding: 14px 20px;
+    border-radius: 0;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .ac-task-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--green);
+    color: var(--black);
+    padding: 3px 8px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ac-task-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .ac-criteria-list { list-style: none; margin-bottom: 2px; }
+  .ac-criteria-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    padding: 14px 20px;
+    background: #111;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: start;
+  }
+  .ac-criteria-item:last-child { border-bottom: none; }
+  .ac-criteria-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--green);
+    opacity: 0.7;
+    padding-top: 3px;
+    font-weight: 500;
+  }
+  .ac-criteria-text {
+    font-size: 14px;
+    color: rgba(245,242,236,0.7);
+    line-height: 1.55;
+  }
+  .ac-criteria-text .testable {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    opacity: 0.8;
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* Testable vs vague */
+  .testable-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .testable-card { padding: 28px 24px; background: #111; }
+  .testable-card.vague { border-top: 2px solid var(--red); }
+  .testable-card.good  { border-top: 2px solid var(--green); }
+  .testable-row {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+  }
+  .testable-row:last-child { border-bottom: none; }
+  .testable-card.vague .testable-row { color: rgba(245,242,236,0.5); }
+  .testable-card.vague .testable-row::before { content: '✕'; color: #e87d7d; opacity: 0.7; flex-shrink: 0; font-size: 11px; padding-top: 1px; }
+  .testable-card.good  .testable-row { color: rgba(245,242,236,0.7); }
+  .testable-card.good  .testable-row::before { content: '✓'; color: #7dd9a0; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 1px; }
+
+  /* ── SECTION 2 — DOD ── */
+  #dod { background: #0d0d0d; }
+
+  .dod-principles {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 48px;
+  }
+  .dod-principle {
+    background: #111;
+    padding: 28px 22px;
+    border-top: 2px solid var(--gold);
+  }
+  .dod-principle-icon { font-size: 24px; margin-bottom: 14px; }
+  .dod-principle-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    color: var(--white);
+  }
+  .dod-principle-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  /* DoD checklist */
+  .dod-checklist-wrap {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .dod-checklist-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .dod-type-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+  }
+  .dod-tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-right: 1px solid var(--border);
+    color: rgba(245,242,236,0.4);
+    cursor: default;
+  }
+  .dod-tab.active { color: var(--gold); background: rgba(201,168,76,0.06); }
+  .dod-checklist-body { padding: 0; }
+  .dod-item {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: start;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    gap: 16px;
+  }
+  .dod-item:last-child { border-bottom: none; }
+  .dod-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(201,168,76,0.3);
+    margin-top: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--green);
+  }
+  .dod-checkbox.checked { background: rgba(76,154,107,0.15); border-color: var(--green); }
+  .dod-item-content {}
+  .dod-item-title {
+    font-size: 14px;
+    color: var(--white);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+  .dod-item-desc {
+    font-size: 12px;
+    color: rgba(245,242,236,0.45);
+    line-height: 1.5;
+  }
+  .dod-item-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    white-space: nowrap;
+    margin-top: 2px;
+    align-self: start;
+  }
+  .dod-item-tag.quality   { background: rgba(76,154,107,0.15); color: #7dd9a0; }
+  .dod-item-tag.review    { background: rgba(76,122,201,0.15); color: #7daae8; }
+  .dod-item-tag.docs      { background: rgba(201,168,76,0.12); color: var(--gold-light); }
+  .dod-item-tag.delivery  { background: rgba(122,76,201,0.15); color: #b07de8; }
+
+  /* How to build DoD */
+  .dod-build { max-width: 900px; margin-bottom: 40px; }
+
+  /* ── SECTION 3 — PEER REVIEW ── */
+  #peerreview { background: var(--black); }
+
+  /* Flow diagram */
+  .flow {
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 40px;
+    align-items: stretch;
+  }
+  .flow-step {
+    background: #111;
+    padding: 24px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 16px;
+    z-index: 1;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-step-icon { font-size: 22px; margin-bottom: 10px; }
+  .flow-step-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .flow-step-desc {
+    font-size: 11px;
+    color: rgba(245,242,236,0.45);
+    line-height: 1.5;
+  }
+  .flow-step.highlight { background: rgba(201,168,76,0.08); border: 1px solid var(--border); }
+
+  /* Rules grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 900px;
+    margin-bottom: 40px;
+  }
+  .rule-card {
+    background: rgba(201,168,76,0.04);
+    border-left: 2px solid var(--border);
+    padding: 22px 24px;
+  }
+  .rule-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+  .rule-desc {
+    font-size: 13px;
+    color: rgba(245,242,236,0.55);
+    line-height: 1.65;
+  }
+
+  /* Reviewer card */
+  .reviewer-box {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .reviewer-box-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .reviewer-section {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .reviewer-section:last-child { border-bottom: none; }
+  .reviewer-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .reviewer-section-content {
+    font-size: 14px;
+    color: rgba(245,242,236,0.65);
+    line-height: 1.7;
+  }
+  .reviewer-section-content ul { list-style: none; margin-top: 4px; }
+  .reviewer-section-content ul li {
+    font-size: 13px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 8px;
+    color: rgba(245,242,236,0.6);
+    line-height: 1.5;
+  }
+  .reviewer-section-content ul li:last-child { border-bottom: none; }
+  .reviewer-section-content ul li::before { content: '→'; color: var(--gold); opacity: 0.5; flex-shrink: 0; }
+
+  /* Scenarios */
+  .scenario-wrap {
+    max-width: 900px;
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .scenario-header {
+    background: rgba(201,168,76,0.08);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+  }
+  .scenario-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .scenario-row:last-child { border-bottom: none; }
+  .scenario-cell {
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .scenario-cell.before {
+    border-right: 1px solid rgba(255,255,255,0.05);
+    background: rgba(201,76,76,0.03);
+  }
+  .scenario-cell.after { background: rgba(76,154,107,0.03); }
+  .scenario-cell-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .scenario-cell.before .scenario-cell-label { color: #e87d7d; }
+  .scenario-cell.after  .scenario-cell-label { color: #7dd9a0; }
+  .scenario-cell-text { color: rgba(245,242,236,0.65); font-style: italic; }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    padding: 80px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .footer-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 14px 24px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-back-btn:hover { opacity: 0.85; }
+  .footer-back-btn::before { content: '←'; font-size: 14px; }
+  .footer-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .tag-grid.cols-2, .tag-grid.cols-3 { grid-template-columns: 1fr; }
+    .ac-formula { grid-template-columns: 1fr; }
+    .ac-formula-plus { display: none; }
+    .testable-grid { grid-template-columns: 1fr; }
+    .dod-principles { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: 1fr 1fr; }
+    .flow-step::after { display: none; }
+    .rules-grid { grid-template-columns: 1fr; }
+    .pitfall-grid { grid-template-columns: 1fr; }
+    .scenario-row { grid-template-columns: 1fr; }
+    .scenario-cell.before { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .topbar-nav { display: none; }
+  }
+  @media (max-width: 600px) {
+    :root { --pad: 20px; }
+    section { padding: 56px var(--pad); }
+    .hero { padding: 72px var(--pad) 60px; }
+    .topbar { padding: 0 var(--pad); }
+    .page-footer { padding: 56px var(--pad); }
+    .hero h1 { font-size: clamp(46px, 13vw, 64px); }
+    .section-title { font-size: clamp(32px, 10vw, 48px); }
+    .flow { grid-template-columns: 1fr; }
+    .step-row { grid-template-columns: 36px 1fr; gap: 14px; }
+    .step-row-num { font-size: 32px; }
+    .dod-item { grid-template-columns: 28px 1fr; }
+    .dod-item-tag { display: none; }
+    .hero-bg-letter { display: none; }
+    .mantra { padding: 20px; }
+    .mantra-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-back">Back to Playbook</a>
+  <div class="topbar-title">COSE · Standards</div>
+  <div class="topbar-nav">
+    <a href="#criteria">Acceptance Criteria</a>
+    <a href="#dod">Definition of Done</a>
+    <a href="#peerreview">Peer Review</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">COSE Framework · S</div>
+  <h1>Communicating<br><span>Standards</span></h1>
+  <p class="hero-desc">Standards don't enforce themselves — they need to be written down, co-created, and embedded into the daily rhythm of the team. This page gives you three practical tools to make quality consistent, self-managing, and impossible to argue with.</p>
+  <div class="hero-pills">
+    <a href="#criteria"   class="hero-pill">01 · Acceptance Criteria</a>
+    <a href="#dod"        class="hero-pill">02 · Definition of Done</a>
+    <a href="#peerreview" class="hero-pill">03 · Peer Review</a>
+  </div>
+  <div class="hero-bg-letter">S</div>
+</div>
+
+<!-- ══════════════════════════════════
+     01 — ACCEPTANCE CRITERIA
+═══════════════════════════════════ -->
+<section id="criteria">
+  <div class="section-tag">01</div>
+  <h2 class="section-title">Clear Acceptance<br>Criteria on Every Task</h2>
+  <p class="section-subtitle">Acceptance criteria are the 2–5 specific, testable conditions that define when a task is complete. They turn "I think this is done" into "yes, it passes — here's the evidence."</p>
+
+  <div class="intro-strip">
+    <strong>The core idea:</strong> Before a task begins, write down what "done" looks like — in concrete, checkable terms. Anyone — the person doing the work, a peer, or a future reviewer — should be able to read the criteria and say yes or no with no ambiguity. If you can't test it, it's not a criterion.
+  </div>
+
+  <!-- Formula -->
+  <div class="ac-formula">
+    <div class="ac-formula-block">
+      <div class="ac-formula-label">Input</div>
+      <div class="ac-formula-name">The task</div>
+      <div class="ac-formula-desc">Any piece of work — deliverable, event, design, document, campaign, or decision — that will be handed off or reviewed.</div>
+    </div>
+    <div class="ac-formula-plus">+</div>
+    <div class="ac-formula-block">
+      <div class="ac-formula-label">Process</div>
+      <div class="ac-formula-name">2–5 testable conditions</div>
+      <div class="ac-formula-desc">Written before work starts. Each one is specific, observable, and either passes or fails — no grey area.</div>
+    </div>
+    <div class="ac-formula-plus">=</div>
+    <div class="ac-formula-block">
+      <div class="ac-formula-label">Output</div>
+      <div class="ac-formula-name">Self-checked quality</div>
+      <div class="ac-formula-desc">Work that anyone can verify without a manager present. Fewer revisions. Faster sign-off. Consistent output across the team.</div>
+    </div>
+  </div>
+
+  <!-- How to write them -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">How to write acceptance criteria in 4 steps</div>
+  </div>
+  <div class="max-900" style="margin-bottom:40px;">
+    <div class="step-row">
+      <div class="step-row-num">01</div>
+      <div>
+        <div class="step-row-title">Start with the outcome, not the activity</div>
+        <div class="step-row-desc">Ask: "What does success look like from the perspective of the person receiving this work?" Write from that perspective — not from the task-doer's point of view. The outcome is what matters, not the effort.</div>
+        <div class="step-row-example">Bad: "Work on the event promotion." Good: "The event has been promoted across 3 channels with posts live at least 5 days before the date."</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">02</div>
+      <div>
+        <div class="step-row-title">Make every criterion testable</div>
+        <div class="step-row-desc">Each criterion should be answerable with a clear yes or no. If it requires interpretation or judgment to evaluate, rewrite it with a concrete number, threshold, or observable condition. "Good quality" is not a criterion. "Fewer than 2 typos" is.</div>
+        <div class="step-row-example">Bad: "The report looks professional." Good: "The report uses the team template, has no typos, and fits on 2 pages."</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">03</div>
+      <div>
+        <div class="step-row-title">Write them before work starts</div>
+        <div class="step-row-desc">Acceptance criteria written after the work is done are just rationalizations. The discipline is to write them first — before anyone touches the task. This also forces clarity about what the task actually is before time is wasted on the wrong version.</div>
+        <div class="step-row-example">In your task management tool (Notion, Trello, Asana), add an AC field to every card before assigning it. If you can't fill it in, the task isn't ready to be assigned.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">04</div>
+      <div>
+        <div class="step-row-title">Keep it to 2–5 criteria</div>
+        <div class="step-row-desc">More than 5 and you're writing a spec, not criteria. Focus on the conditions that would make you genuinely confident the work is good. If everything feels equally important, the task is probably too large — break it down.</div>
+        <div class="step-row-example">If you find yourself writing 10 criteria, split the task into two smaller tasks with 3–5 criteria each.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real example -->
+  <div class="example-box">
+    <div class="example-box-header">
+      Example — Community event promotion task
+      <span class="example-badge">EXAMPLE</span>
+    </div>
+    <div class="example-box-body" style="padding:0;">
+      <div class="ac-task-header">
+        <div class="ac-task-badge">TASK</div>
+        <div class="ac-task-name">Promote the Q3 community launch event across all team channels</div>
+      </div>
+      <ul class="ac-criteria-list">
+        <li class="ac-criteria-item">
+          <div class="ac-criteria-num">AC1</div>
+          <div class="ac-criteria-text">
+            Posts are live on Instagram, LinkedIn, and the team newsletter at least 5 days before the event date
+            <span class="testable">✓ Testable — check timestamps on each platform</span>
+          </div>
+        </li>
+        <li class="ac-criteria-item">
+          <div class="ac-criteria-num">AC2</div>
+          <div class="ac-criteria-text">
+            All posts include the event date, time, location, and a registration link
+            <span class="testable">✓ Testable — open each post and verify all 4 elements are present</span>
+          </div>
+        </li>
+        <li class="ac-criteria-item">
+          <div class="ac-criteria-num">AC3</div>
+          <div class="ac-criteria-text">
+            Instagram post has been approved by the Marketing Lead before going live
+            <span class="testable">✓ Testable — check for approval comment or sign-off in the task</span>
+          </div>
+        </li>
+        <li class="ac-criteria-item">
+          <div class="ac-criteria-num">AC4</div>
+          <div class="ac-criteria-text">
+            At least 15 registrations are confirmed within 48 hours of the first post going live
+            <span class="testable">✓ Testable — check registration form responses</span>
+          </div>
+        </li>
+        <li class="ac-criteria-item">
+          <div class="ac-criteria-num">AC5</div>
+          <div class="ac-criteria-text">
+            All team members have shared or re-posted at least one piece of promotion content from their personal accounts
+            <span class="testable">✓ Testable — team lead confirms in the group chat</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Testable vs vague -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:16px;">Testable vs. vague — the difference</div>
+  </div>
+  <div class="testable-grid">
+    <div class="testable-card vague">
+      <div class="compare-label label-red">✕ &nbsp; Vague — not testable</div>
+      <div class="testable-row">The document looks good and is well-written</div>
+      <div class="testable-row">The event was promoted sufficiently</div>
+      <div class="testable-row">The partner is happy with the outcome</div>
+      <div class="testable-row">The presentation was professional</div>
+      <div class="testable-row">The task was completed on time</div>
+    </div>
+    <div class="testable-card good">
+      <div class="compare-label label-green">✓ &nbsp; Testable — clear pass/fail</div>
+      <div class="testable-row">Document uses the team template and has zero spelling errors</div>
+      <div class="testable-row">Promoted on 3 platforms, 5+ days before the event date</div>
+      <div class="testable-row">Partner has responded with written confirmation by Friday</div>
+      <div class="testable-row">Slides use brand colours, max 8 words per slide, no images stretched</div>
+      <div class="testable-row">Submitted to the shared folder by 5pm on the agreed date</div>
+    </div>
+  </div>
+
+  <!-- Pitfalls -->
+  <div style="max-width:900px; margin-bottom:20px; margin-top:40px;">
+    <div class="section-tag" style="margin-bottom:20px;">Common mistakes</div>
+  </div>
+  <div class="pitfall-grid">
+    <div class="pitfall-card">
+      <div class="pitfall-title">Writing criteria after the work</div>
+      <div class="pitfall-desc">Criteria written retrospectively just validate whatever was produced. The whole point is to set the bar before work starts, so the person doing it knows what to aim for.</div>
+    </div>
+    <div class="pitfall-card">
+      <div class="pitfall-title">Using subjective language</div>
+      <div class="pitfall-desc">"High quality," "looks good," "thorough," and "professional" are not criteria. Every criterion must be verifiable by someone who wasn't involved in creating the work.</div>
+    </div>
+    <div class="pitfall-card">
+      <div class="pitfall-title">Too many criteria</div>
+      <div class="pitfall-desc">More than 5 criteria usually means the task is too large or you're writing a full spec. Trim to the 2–5 conditions that would genuinely make you confident the work is done well.</div>
+    </div>
+    <div class="pitfall-card">
+      <div class="pitfall-title">Skipping small tasks</div>
+      <div class="pitfall-desc">Even quick tasks benefit from 2–3 criteria. "Send the email" becomes "email sent by Thursday, includes the agenda, and has been proofread by one other person." Takes 30 seconds to write, saves significant confusion.</div>
+    </div>
+  </div>
+
+  <div class="mantra" style="margin-top:40px;">
+    <div class="mantra-title">If you can't test it, it's not a standard — it's a wish.</div>
+    <div class="mantra-sub">Acceptance criteria turn expectations into evidence. The goal isn't to police your team — it's to make quality so clear that they can police themselves.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     02 — DEFINITION OF DONE
+═══════════════════════════════════ -->
+<section id="dod">
+  <div class="section-tag">02</div>
+  <h2 class="section-title">Team-Owned<br>Definition of Done</h2>
+  <p class="section-subtitle">A Definition of Done (DoD) is a short, shared checklist that defines what "complete" means for your team's main work types — created by the team, owned by the team, and applied consistently by everyone.</p>
+
+  <div class="intro-strip">
+    <strong>The key distinction from Acceptance Criteria:</strong> Acceptance criteria are task-specific — they change with every task. A Definition of Done is team-wide — it applies to every piece of work in a given category. Think of it as your universal quality floor. No work ships below it, ever.
+  </div>
+
+  <!-- Why it matters -->
+  <div class="dod-principles">
+    <div class="dod-principle">
+      <div class="dod-principle-icon">🤝</div>
+      <div class="dod-principle-title">Co-created = owned</div>
+      <div class="dod-principle-desc">A DoD handed down by a leader gets ignored. One built by the team gets defended. Hold a session to build it together — the conversation itself surfaces misaligned expectations.</div>
+    </div>
+    <div class="dod-principle">
+      <div class="dod-principle-icon">🚦</div>
+      <div class="dod-principle-title">Consistent floor</div>
+      <div class="dod-principle-desc">Without a DoD, quality depends on who does the work. With one, it depends on the checklist. Every person, every time — same minimum bar.</div>
+    </div>
+    <div class="dod-principle">
+      <div class="dod-principle-icon">🚀</div>
+      <div class="dod-principle-title">No bottleneck</div>
+      <div class="dod-principle-desc">When the DoD is clear, anyone can ship work that meets it — no manager sign-off needed. Quality becomes self-managing, not leader-dependent.</div>
+    </div>
+  </div>
+
+  <!-- How to build one -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">How to build your DoD in one session</div>
+  </div>
+  <div class="max-900" style="margin-bottom:40px;">
+    <div class="step-row">
+      <div class="step-row-num">01</div>
+      <div>
+        <div class="step-row-title">Pick your work types</div>
+        <div class="step-row-desc">Identify the 2–4 main categories of work your team produces. For Enactus, this might be events, documents, presentations, and partner communications. You'll build a DoD checklist for each.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">02</div>
+      <div>
+        <div class="step-row-title">Run a "what does done mean?" session</div>
+        <div class="step-row-desc">Gather the team. For each work type, ask: "If we handed this off tomorrow and felt genuinely confident about it — what would be true?" Write everything down without filtering. You'll get duplicates, misalignments, and surprises. That's the point.</div>
+        <div class="step-row-example">Prompt: "Imagine a piece of work that is just barely not done. What's missing? Now imagine it's definitely done — what's present?" The gap between those two descriptions is your DoD.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">03</div>
+      <div>
+        <div class="step-row-title">Trim to 6–12 items</div>
+        <div class="step-row-desc">Combine duplicates, remove aspirational items (those belong in acceptance criteria), and cut anything that isn't genuinely universal. You want the list short enough that people remember it — long enough to actually cover quality.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">04</div>
+      <div>
+        <div class="step-row-title">Publish it and use it</div>
+        <div class="step-row-desc">Put it somewhere everyone can access instantly — the top of your Notion workspace, pinned in Slack, printed at your desk. Refer to it openly in meetings. Make checking it a visible habit, not a secret ritual.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-row-num">05</div>
+      <div>
+        <div class="step-row-title">Review it each semester</div>
+        <div class="step-row-desc">As your team matures, so should your standards. Schedule a 30-minute DoD review each semester. What's missing? What's outdated? What's so obvious now that it doesn't need to be on the list?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DoD checklist example -->
+  <div class="dod-checklist-wrap">
+    <div class="dod-checklist-header">
+      Definition of Done — Example checklist
+      <span class="example-badge">EXAMPLE</span>
+    </div>
+    <div class="dod-type-tabs">
+      <div class="dod-tab active">Community Event</div>
+      <div class="dod-tab">Document</div>
+      <div class="dod-tab">Presentation</div>
+    </div>
+    <div class="dod-checklist-body">
+      <div class="dod-item">
+        <div class="dod-checkbox checked">✓</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">All acceptance criteria for the event have been met and checked off</div>
+          <div class="dod-item-desc">Every task-specific condition has been verified — not assumed</div>
+        </div>
+        <div class="dod-item-tag quality">Quality</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox checked">✓</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">At least one peer has reviewed the plan and signed off</div>
+          <div class="dod-item-desc">A qualified teammate who wasn't the primary owner has confirmed readiness</div>
+        </div>
+        <div class="dod-item-tag review">Review</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox">□</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">Promotion is live on all 3 channels at least 5 days before the event</div>
+          <div class="dod-item-desc">Instagram, LinkedIn, and newsletter have all been published with registration link</div>
+        </div>
+        <div class="dod-item-tag delivery">Delivery</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox">□</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">Logistics confirmed: venue, time, equipment, volunteers all locked in</div>
+          <div class="dod-item-desc">No outstanding dependencies that could block the event from running</div>
+        </div>
+        <div class="dod-item-tag quality">Quality</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox">□</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">A run-of-show document exists and has been shared with all leads</div>
+          <div class="dod-item-desc">Everyone involved knows the timeline, their role, and what to do if something goes wrong</div>
+        </div>
+        <div class="dod-item-tag docs">Docs</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox">□</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">Registration has hit the minimum attendee target</div>
+          <div class="dod-item-desc">The event is not considered ready to run unless the minimum participation threshold is met</div>
+        </div>
+        <div class="dod-item-tag quality">Quality</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox">□</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">Post-event plan is documented: debrief, survey, follow-up communications</div>
+          <div class="dod-item-desc">Done doesn't mean the event has happened — it means the loop has been closed</div>
+        </div>
+        <div class="dod-item-tag docs">Docs</div>
+      </div>
+      <div class="dod-item">
+        <div class="dod-checkbox">□</div>
+        <div class="dod-item-content">
+          <div class="dod-item-title">Budget reconciled and all expenses submitted to Finance Lead</div>
+          <div class="dod-item-desc">No outstanding financial items after the event closes</div>
+        </div>
+        <div class="dod-item-tag delivery">Delivery</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">Done isn't done until the checklist says it's done.</div>
+    <div class="mantra-sub">When a team co-creates a DoD and commits to it, "I think it's ready" stops being good enough — and that's exactly the point. The standard becomes shared, visible, and non-negotiable.</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     03 — PEER REVIEW
+═══════════════════════════════════ -->
+<section id="peerreview">
+  <div class="section-tag">03</div>
+  <h2 class="section-title">Self-Managed<br>Peer Review</h2>
+  <p class="section-subtitle">Peer review keeps quality high and knowledge distributed — without creating a bottleneck around one manager or approver. Any qualified teammate can approve work, as long as the acceptance criteria and DoD are both met.</p>
+
+  <div class="intro-strip">
+    <strong>The shift:</strong> Traditional review flows everything through the leader — creating delays, dependency, and a single point of failure. Self-managed peer review distributes that responsibility across the team. The leader sets the standard. The team enforces it.
+  </div>
+
+  <!-- Flow diagram -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:16px;">How the process flows</div>
+  </div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-step-icon">✍️</div>
+      <div class="flow-step-title">Work created</div>
+      <div class="flow-step-desc">Owner completes work against the agreed acceptance criteria</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-icon">☑️</div>
+      <div class="flow-step-title">Self-check</div>
+      <div class="flow-step-desc">Owner runs through the DoD checklist before requesting review</div>
+    </div>
+    <div class="flow-step highlight">
+      <div class="flow-step-icon">👥</div>
+      <div class="flow-step-title">Peer review</div>
+      <div class="flow-step-desc">A qualified teammate reviews against the AC and DoD — not personal preference</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-icon">✅</div>
+      <div class="flow-step-title">Approved</div>
+      <div class="flow-step-desc">Peer confirms all criteria are met. Work ships — no manager required</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-icon">🔁</div>
+      <div class="flow-step-title">Revise if needed</div>
+      <div class="flow-step-desc">If criteria aren't met, owner revises and resubmits — specific gaps only</div>
+    </div>
+  </div>
+
+  <!-- The rules -->
+  <div style="max-width:900px; margin-bottom:20px;">
+    <div class="section-tag" style="margin-bottom:20px;">The rules that make it work</div>
+  </div>
+  <div class="rules-grid">
+    <div class="rule-card">
+      <div class="rule-title">Review against criteria — not preference</div>
+      <div class="rule-desc">Reviewers evaluate whether the acceptance criteria are met, not whether they would have done it differently. Personal taste is not a reason to request changes. Unmet criteria is. This keeps reviews fast and objective.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Self-check first — always</div>
+      <div class="rule-desc">Work should never go for peer review without the owner first checking it against the DoD themselves. Sending work that obviously fails the checklist disrespects the reviewer's time and signals a culture that doesn't take standards seriously.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Any qualified teammate can approve</div>
+      <div class="rule-desc">"Qualified" means they understand the work type and have read the acceptance criteria. It does not mean they hold a specific role. Distributing approval authority across the team removes single-point bottlenecks and builds shared ownership of quality.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Feedback must be specific</div>
+      <div class="rule-desc">If a reviewer rejects work, they must cite which acceptance criterion or DoD item is not met and why. "This doesn't feel right" is not valid feedback. "AC3 isn't met — the registration link goes to the wrong form" is.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Escalate only genuine disagreements</div>
+      <div class="rule-desc">If the owner and reviewer genuinely disagree on whether a criterion is met — not just style preference — escalate to the team lead for a final call. But this should be rare if criteria are well-written.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-title">Keep a record</div>
+      <div class="rule-desc">Leave a written trail: who reviewed, when, and what was confirmed or flagged. This creates accountability, enables learning, and gives the team lead visibility without being in every review loop themselves.</div>
+    </div>
+  </div>
+
+  <!-- Reviewer card template -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">Reviewer checklist — what a good review looks like</div>
+  </div>
+  <div class="reviewer-box">
+    <div class="reviewer-box-header">
+      Peer review template <span class="example-badge">TEMPLATE</span>
+    </div>
+    <div class="reviewer-section">
+      <div class="reviewer-section-label">Before you start</div>
+      <div class="reviewer-section-content">
+        <ul>
+          <li>Read the acceptance criteria for this task before looking at the work</li>
+          <li>Confirm the owner has self-checked against the DoD (ask if unsure)</li>
+          <li>Confirm you understand what the work is supposed to achieve</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reviewer-section">
+      <div class="reviewer-section-label">During review</div>
+      <div class="reviewer-section-content">
+        <ul>
+          <li>For each acceptance criterion: does this work clearly pass? Yes or no</li>
+          <li>For each DoD item applicable to this work type: is it met?</li>
+          <li>Note any criterion that is borderline — flag it with a specific question, not a rejection</li>
+          <li>Do not flag things that are preference, style, or "how I would have done it"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reviewer-section">
+      <div class="reviewer-section-label">If you approve</div>
+      <div class="reviewer-section-content">Write a brief confirmation: "Reviewed [date]. All acceptance criteria met. DoD checked. Approved to ship." Leave this on the task card or in the shared doc.</div>
+    </div>
+    <div class="reviewer-section">
+      <div class="reviewer-section-label">If you request changes</div>
+      <div class="reviewer-section-content">
+        <ul>
+          <li>List only the criteria or DoD items that are not met — by number or name</li>
+          <li>For each one, state specifically what's missing or incorrect</li>
+          <li>Do not request changes on items that are met but could be "better"</li>
+          <li>Offer to answer questions — don't leave the owner to guess what you mean</li>
+        </ul>
+      </div>
+    </div>
+    <div class="reviewer-section">
+      <div class="reviewer-section-label">Time expectation</div>
+      <div class="reviewer-section-content">Most peer reviews should take 10–20 minutes. If a review is taking longer, the acceptance criteria are probably too vague — fix the criteria, not just the work.</div>
+    </div>
+  </div>
+
+  <!-- Scenarios -->
+  <div style="max-width:900px; margin-bottom:16px;">
+    <div class="section-tag" style="margin-bottom:16px;">Before and after — what peer review changes</div>
+  </div>
+  <div class="scenario-wrap">
+    <div class="scenario-header">Same team. Two approaches to quality.</div>
+    <div class="scenario-row">
+      <div class="scenario-cell before">
+        <div class="scenario-cell-label">✕ Without peer review</div>
+        <div class="scenario-cell-text">"I think the event plan is ready — I'll send it to the team lead and wait to hear back." Three days pass. The lead makes minor changes. The plan ships late.</div>
+      </div>
+      <div class="scenario-cell after">
+        <div class="scenario-cell-label">✓ With peer review</div>
+        <div class="scenario-cell-text">"I've self-checked against the DoD, all 8 items are done. I've asked Jamie to review against the AC — she confirmed by end of day and we shipped."</div>
+      </div>
+    </div>
+    <div class="scenario-row">
+      <div class="scenario-cell before">
+        <div class="scenario-cell-label">✕ Without peer review</div>
+        <div class="scenario-cell-text">"The newsletter went out with the wrong event date. Nobody caught it because only one person looked at it before it sent."</div>
+      </div>
+      <div class="scenario-cell after">
+        <div class="scenario-cell-label">✓ With peer review</div>
+        <div class="scenario-cell-text">"During peer review, AC2 flagged that the event date was missing from the subject line. Fixed before send. Zero corrections needed afterward."</div>
+      </div>
+    </div>
+    <div class="scenario-row">
+      <div class="scenario-cell before">
+        <div class="scenario-cell-label">✕ Without peer review</div>
+        <div class="scenario-cell-text">"The leader is the only one who approves anything, so everything queues up. We can't move until they respond — and they're handling 6 other things."</div>
+      </div>
+      <div class="scenario-cell after">
+        <div class="scenario-cell-label">✓ With peer review</div>
+        <div class="scenario-cell-text">"Three people on the team are now qualified reviewers. Work gets approved same-day. The leader is in the loop but not the bottleneck."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mantra">
+    <div class="mantra-title">Quality is a team sport, not a leader's job.</div>
+    <div class="mantra-sub">When your team owns the review process — not just the work — standards stop being rules imposed from above and start being values upheld from within. That's when culture actually works.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <div>
+    <div class="footer-label">You're done with Standards</div>
+    <a href="index.html" class="footer-back-btn">Back to Full Playbook</a>
+  </div>
+  <div class="footer-date">Enactus Leadership Summit · May 2026</div>
+</div>
+
+</body>
+</html>
