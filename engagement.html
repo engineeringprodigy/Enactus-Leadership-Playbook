@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Engagement — Enactus Leadership Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a; --white: #f5f2ec; --gold: #c9a84c; --gold-light: #e8cc80;
+    --green: #4c9a6b; --blue: #4c7ac9; --purple: #7a4cc9; --red: #c94c4c;
+    --orange: #c97a4c; --muted: #888; --border: rgba(201,168,76,0.25); --pad: 60px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; overflow-x: hidden; }
+
+  .topbar { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 var(--pad); display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .topbar-back { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: opacity 0.2s; }
+  .topbar-back:hover { opacity: 0.7; }
+  .topbar-back::before { content: '←'; font-size: 14px; }
+  .topbar-title { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .topbar-nav { display: flex; gap: 6px; }
+  .topbar-nav a { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,242,236,0.5); text-decoration: none; padding: 5px 10px; border: 1px solid transparent; transition: all 0.2s; }
+  .topbar-nav a:hover { color: var(--white); border-color: var(--border); }
+
+  .hero { padding: 100px var(--pad) 80px; border-bottom: 1px solid var(--border); background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(122,76,201,0.08) 0%, transparent 70%); position: relative; overflow: hidden; }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .hero-eyebrow::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 9vw, 120px); line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 28px; }
+  .hero h1 span { color: var(--gold); }
+  .hero-desc { font-size: 16px; color: rgba(245,242,236,0.6); max-width: 580px; line-height: 1.75; margin-bottom: 40px; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-pill { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 7px 14px; border: 1px solid var(--border); color: rgba(245,242,236,0.6); text-decoration: none; transition: all 0.2s; background: rgba(201,168,76,0.03); }
+  .hero-pill:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+  .hero-bg-letter { position: absolute; right: -20px; bottom: -30px; font-family: 'Bebas Neue', sans-serif; font-size: 280px; color: rgba(122,76,201,0.05); line-height: 1; pointer-events: none; user-select: none; }
+
+  .culture-banner { background: linear-gradient(135deg, rgba(122,76,201,0.12) 0%, rgba(201,168,76,0.08) 50%, rgba(76,154,107,0.10) 100%); border-bottom: 1px solid var(--border); padding: 48px var(--pad); display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+  .culture-stat { padding: 24px 28px; background: rgba(10,10,10,0.5); text-align: center; }
+  .culture-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; line-height: 0.9; color: var(--gold); margin-bottom: 10px; }
+  .culture-stat-label { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.5; }
+
+  section { padding: 90px var(--pad); border-bottom: 1px solid var(--border); }
+  .section-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+  .section-tag::after { content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.4; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px, 6vw, 72px); line-height: 0.95; margin-bottom: 12px; letter-spacing: 0.02em; }
+  .section-subtitle { font-size: 15px; color: rgba(245,242,236,0.55); max-width: 620px; margin-bottom: 52px; line-height: 1.7; }
+  .intro-strip { background: rgba(201,168,76,0.06); border: 1px solid var(--border); padding: 24px 28px; margin-bottom: 48px; font-size: 14px; color: rgba(245,242,236,0.7); line-height: 1.75; max-width: 900px; }
+  .intro-strip strong { color: var(--gold); }
+  .max-900 { max-width: 900px; }
+
+  .bullet-list { list-style: none; }
+  .bullet-list li { font-size: 14px; color: rgba(245,242,236,0.6); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 10px; line-height: 1.5; }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list.check li::before { content: '✓'; color: #7dd9a0; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+  .bullet-list.cross li::before { content: '✕'; color: #e87d7d; opacity: 0.8; flex-shrink: 0; font-size: 11px; padding-top: 2px; }
+  .bullet-list.arrow li::before { content: '→'; color: var(--gold); opacity: 0.5; flex-shrink: 0; font-size: 12px; }
+
+  .compare-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; }
+  .label-red { color: #e87d7d; } .label-green { color: #7dd9a0; } .label-gold { color: var(--gold-light); }
+
+  .step-row { display: grid; grid-template-columns: 48px 1fr; gap: 24px; background: #111; padding: 26px; align-items: start; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .step-row:last-child { border-bottom: none; }
+  .step-row-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--gold); opacity: 0.22; line-height: 1; }
+  .step-row-title { font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 7px; color: var(--white); }
+  .step-row-desc { font-size: 14px; color: rgba(245,242,236,0.6); line-height: 1.65; }
+  .step-row-example { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gold-light); background: rgba(201,168,76,0.07); border-left: 2px solid var(--gold); padding: 11px 14px; margin-top: 12px; line-height: 1.6; }
+
+  .mantra { max-width: 900px; background: var(--gold); color: var(--black); padding: 26px 30px; margin-top: 2px; }
+  .mantra-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .mantra-sub { font-size: 13px; font-weight: 500; line-height: 1.6; }
+
+  /* Safety */
+  #safety { background: var(--black); }
+  .safety-spectrum { max-width: 900px; margin-bottom: 40px; background: #111; padding: 32px 28px; border-top: 2px solid var(--purple); }
+  .safety-spectrum-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .spectrum-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-bottom: 16px; }
+  .spectrum-item { padding: 20px 14px; text-align: center; }
+  .spectrum-item.s1 { background: rgba(201,76,76,0.12); } .spectrum-item.s2 { background: rgba(201,122,76,0.10); }
+  .spectrum-item.s3 { background: rgba(201,168,76,0.10); } .spectrum-item.s4 { background: rgba(76,154,107,0.14); }
+  .spectrum-item-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; opacity: 0.6; }
+  .spectrum-item.s1 .spectrum-item-label { color: #e87d7d; } .spectrum-item.s2 .spectrum-item-label { color: #e8a87d; }
+  .spectrum-item.s3 .spectrum-item-label { color: var(--gold-light); } .spectrum-item.s4 .spectrum-item-label { color: #7dd9a0; }
+  .spectrum-item-text { font-size: 12px; color: rgba(245,242,236,0.65); line-height: 1.5; }
+  .spectrum-arrows { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .behaviour-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .behaviour-card { padding: 28px 24px; background: #111; }
+  .behaviour-card.unsafe { border-top: 2px solid var(--red); }
+  .behaviour-card.safe   { border-top: 2px solid var(--green); }
+
+  .leader-acts { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .leader-act { background: rgba(122,76,201,0.06); border: 1px solid rgba(122,76,201,0.2); padding: 24px 20px; }
+  .leader-act-icon { font-size: 22px; margin-bottom: 12px; }
+  .leader-act-title { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; color: var(--white); }
+  .leader-act-desc { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.6; }
+  .leader-act-script { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold-light); background: rgba(201,168,76,0.07); border-left: 2px solid var(--gold); padding: 10px 12px; margin-top: 12px; line-height: 1.6; font-style: italic; }
+
+  .fun-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .fun-card { padding: 28px 22px; background: #111; border-top: 2px solid transparent; }
+  .fun-card:nth-child(1) { border-top-color: var(--purple); } .fun-card:nth-child(2) { border-top-color: var(--orange); }
+  .fun-card:nth-child(3) { border-top-color: var(--blue); }   .fun-card:nth-child(4) { border-top-color: var(--green); }
+  .fun-card:nth-child(5) { border-top-color: var(--red); }    .fun-card:nth-child(6) { border-top-color: var(--gold); }
+  .fun-card-emoji { font-size: 28px; margin-bottom: 14px; }
+  .fun-card-title { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; color: var(--white); }
+  .fun-card-desc { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.6; }
+  .fun-card-example { font-size: 12px; color: rgba(245,242,236,0.4); margin-top: 10px; font-style: italic; line-height: 1.5; }
+
+  /* Journal */
+  #journal { background: #0d0d0d; }
+  .journal-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .journal-compare-card { padding: 28px 24px; background: #111; }
+  .journal-compare-card.without { border-top: 2px solid var(--red); }
+  .journal-compare-card.with    { border-top: 2px solid var(--green); }
+
+  .journal-prompts { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .journal-prompt { padding: 32px 28px; position: relative; overflow: hidden; }
+  .journal-prompt.p1 { background: rgba(122,76,201,0.08); border-top: 2px solid var(--purple); }
+  .journal-prompt.p2 { background: rgba(201,76,76,0.07);  border-top: 2px solid var(--red); }
+  .journal-prompt.p3 { background: rgba(76,122,201,0.08); border-top: 2px solid var(--blue); }
+  .journal-prompt.p4 { background: rgba(76,154,107,0.08); border-top: 2px solid var(--green); }
+  .journal-prompt-num { font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 0.85; position: absolute; right: 16px; top: 12px; opacity: 0.08; }
+  .journal-prompt.p1 .journal-prompt-num { color: var(--purple); } .journal-prompt.p2 .journal-prompt-num { color: var(--red); }
+  .journal-prompt.p3 .journal-prompt-num { color: var(--blue); }   .journal-prompt.p4 .journal-prompt-num { color: var(--green); }
+  .journal-prompt-badge { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 8px; margin-bottom: 16px; display: inline-block; }
+  .journal-prompt.p1 .journal-prompt-badge { background: rgba(122,76,201,0.2); color: #b07de8; }
+  .journal-prompt.p2 .journal-prompt-badge { background: rgba(201,76,76,0.2);  color: #e87d7d; }
+  .journal-prompt.p3 .journal-prompt-badge { background: rgba(76,122,201,0.2); color: #7daae8; }
+  .journal-prompt.p4 .journal-prompt-badge { background: rgba(76,154,107,0.2); color: #7dd9a0; }
+  .journal-prompt-q { font-family: 'DM Sans', sans-serif; font-size: 18px; font-weight: 600; color: var(--white); line-height: 1.3; margin-bottom: 14px; }
+  .journal-prompt-why { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.65; margin-bottom: 14px; }
+  .journal-prompt-example { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(245,242,236,0.5); background: rgba(0,0,0,0.25); padding: 10px 12px; border-left: 2px solid rgba(255,255,255,0.1); line-height: 1.6; font-style: italic; }
+
+  .output-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .output-card { padding: 24px; background: #111; }
+  .output-card.measure { border-top: 2px solid var(--red); }
+  .output-card.instead  { border-top: 2px solid var(--green); }
+  .output-row { display: grid; grid-template-columns: 24px 1fr; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px; line-height: 1.5; }
+  .output-row:last-child { border-bottom: none; }
+  .output-card.measure .output-row { color: rgba(245,242,236,0.5); }
+  .output-card.measure .output-row span { color: #e87d7d; font-size: 11px; padding-top: 1px; }
+  .output-card.instead .output-row { color: rgba(245,242,236,0.7); }
+  .output-card.instead .output-row span { color: #7dd9a0; font-size: 11px; padding-top: 1px; }
+
+  .weekly-rhythm { max-width: 900px; background: #0f0f0f; border: 1px solid var(--border); overflow: hidden; margin-bottom: 40px; }
+  .weekly-rhythm-header { background: rgba(201,168,76,0.08); padding: 14px 24px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .example-badge { font-size: 10px; padding: 3px 8px; background: var(--gold); color: var(--black); font-weight: 700; letter-spacing: 0.1em; }
+  .rhythm-block { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 18px 24px; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: start; }
+  .rhythm-block:last-child { border-bottom: none; }
+  .rhythm-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); padding-top: 2px; }
+  .rhythm-title { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; color: var(--white); }
+  .rhythm-desc { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.6; }
+  .rhythm-prompts { list-style: none; margin-top: 8px; }
+  .rhythm-prompts li { font-size: 13px; color: rgba(245,242,236,0.6); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; gap: 8px; line-height: 1.5; }
+  .rhythm-prompts li:last-child { border-bottom: none; }
+  .rhythm-prompts li::before { content: '→'; color: var(--gold); opacity: 0.5; flex-shrink: 0; }
+
+  /* Autonomy */
+  #autonomy { background: var(--black); }
+  .autonomy-levels { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .autonomy-level { padding: 32px 24px; background: #111; position: relative; overflow: hidden; }
+  .autonomy-level.what { border-top: 2px solid var(--red); }
+  .autonomy-level.how  { border-top: 2px solid var(--gold); }
+  .autonomy-level.why  { border-top: 2px solid var(--green); }
+  .autonomy-level-bg { position: absolute; right: 12px; top: 12px; font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 1; opacity: 0.07; }
+  .autonomy-level.what .autonomy-level-bg { color: var(--red); } .autonomy-level.how .autonomy-level-bg { color: var(--gold); } .autonomy-level.why .autonomy-level-bg { color: var(--green); }
+  .autonomy-badge { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 8px; margin-bottom: 14px; display: inline-block; }
+  .autonomy-level.what .autonomy-badge { background: rgba(201,76,76,0.15); color: #e87d7d; }
+  .autonomy-level.how  .autonomy-badge { background: rgba(201,168,76,0.15); color: var(--gold-light); }
+  .autonomy-level.why  .autonomy-badge { background: rgba(76,154,107,0.15); color: #7dd9a0; }
+  .autonomy-level-title { font-family: 'DM Sans', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; color: var(--white); }
+  .autonomy-level-desc { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.65; margin-bottom: 14px; }
+  .autonomy-level-example { font-family: 'DM Mono', monospace; font-size: 11px; color: rgba(245,242,236,0.45); font-style: italic; line-height: 1.5; }
+
+  .autonomy-dial { max-width: 900px; background: #111; padding: 32px 28px; border-top: 2px solid var(--gold); margin-bottom: 40px; }
+  .dial-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .dial-bar { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; margin-bottom: 16px; }
+  .dial-item { padding: 18px 12px; text-align: center; }
+  .dial-item.d1 { background: rgba(201,76,76,0.12); } .dial-item.d2 { background: rgba(201,122,76,0.09); }
+  .dial-item.d3 { background: rgba(201,168,76,0.09); } .dial-item.d4 { background: rgba(76,154,107,0.10); }
+  .dial-item.d5 { background: rgba(76,154,107,0.18); border: 1px solid rgba(76,154,107,0.3); }
+  .dial-item-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; opacity: 0.6; color: var(--muted); }
+  .dial-item.d5 .dial-item-label { color: #7dd9a0; }
+  .dial-item-text { font-size: 12px; color: rgba(245,242,236,0.6); line-height: 1.4; }
+  .dial-arrows { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin-bottom: 40px; }
+  .trust-card { padding: 28px 24px; background: rgba(201,168,76,0.04); border-left: 2px solid var(--border); }
+  .trust-title { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold-light); margin-bottom: 8px; }
+  .trust-desc { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.65; }
+
+  .diverse-box { max-width: 900px; background: #0f0f0f; border: 1px solid var(--border); overflow: hidden; margin-bottom: 40px; }
+  .diverse-box-header { background: rgba(122,76,201,0.1); padding: 14px 24px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #b07de8; border-bottom: 1px solid rgba(122,76,201,0.2); }
+  .diverse-box-body { padding: 28px 24px; }
+  .diverse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .diverse-col-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+
+  .pitfall-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin-bottom: 0; }
+  .pitfall-card { padding: 22px 24px; background: rgba(201,76,76,0.05); border-left: 2px solid rgba(201,76,76,0.35); }
+  .pitfall-title { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #e87d7d; margin-bottom: 6px; }
+  .pitfall-desc { font-size: 13px; color: rgba(245,242,236,0.55); line-height: 1.6; }
+
+  .page-footer { padding: 80px var(--pad); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-top: 1px solid var(--border); }
+  .footer-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .footer-back-btn { display: inline-flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 14px 24px; text-decoration: none; transition: opacity 0.2s; }
+  .footer-back-btn:hover { opacity: 0.85; }
+  .footer-back-btn::before { content: '←'; font-size: 14px; }
+  .footer-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; }
+
+  @media (max-width: 860px) {
+    .culture-banner { grid-template-columns: 1fr; padding: 36px var(--pad); }
+    .behaviour-grid, .journal-compare, .journal-prompts, .output-grid, .trust-grid, .pitfall-grid { grid-template-columns: 1fr; }
+    .leader-acts, .fun-grid, .autonomy-levels { grid-template-columns: 1fr 1fr; }
+    .diverse-grid { grid-template-columns: 1fr; }
+    .spectrum-bar { grid-template-columns: 1fr 1fr; }
+    .dial-bar { grid-template-columns: 1fr 1fr 1fr; }
+    .topbar-nav { display: none; }
+    .rhythm-block { grid-template-columns: 1fr; gap: 4px; }
+  }
+  @media (max-width: 600px) {
+    :root { --pad: 20px; }
+    section { padding: 56px var(--pad); }
+    .hero { padding: 72px var(--pad) 60px; }
+    .topbar { padding-left: var(--pad); padding-right: var(--pad); }
+    .page-footer { padding: 56px var(--pad); }
+    .hero h1 { font-size: clamp(46px, 13vw, 64px); }
+    .section-title { font-size: clamp(32px, 10vw, 48px); }
+    .leader-acts, .fun-grid, .autonomy-levels { grid-template-columns: 1fr; }
+    .spectrum-bar, .dial-bar { grid-template-columns: 1fr 1fr; }
+    .step-row { grid-template-columns: 36px 1fr; gap: 14px; }
+    .step-row-num { font-size: 32px; }
+    .hero-bg-letter { display: none; }
+    .mantra { padding: 20px; }
+    .mantra-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="index.html" class="topbar-back">Back to Playbook</a>
+  <div class="topbar-title">COSE · Engagement</div>
+  <div class="topbar-nav">
+    <a href="#safety">Psych Safety</a>
+    <a href="#journal">Journal</a>
+    <a href="#autonomy">Autonomy</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">COSE Framework · E</div>
+  <h1>Building<br><span>Engagement</span></h1>
+  <p class="hero-desc">Engaged teams don't just show up — they bring all of themselves. This page gives you three frameworks to build a culture where people feel safe to speak, free to think, and trusted to lead — and where showing up as a full human being is the expectation, not the exception.</p>
+  <div class="hero-pills">
+    <a href="#safety"   class="hero-pill">01 · Psychological Safety</a>
+    <a href="#journal"  class="hero-pill">02 · Work/Personal Journal</a>
+    <a href="#autonomy" class="hero-pill">03 · Autonomy with Clear Goals</a>
+  </div>
+  <div class="hero-bg-letter">E</div>
+</div>
+
+<div class="culture-banner">
+  <div class="culture-stat"><div class="culture-stat-num">70%</div><div class="culture-stat-label">of employee engagement is determined by the manager's behaviour — not perks, pay, or office design</div></div>
+  <div class="culture-stat"><div class="culture-stat-num">3×</div><div class="culture-stat-label">more likely to feel engaged when team members feel psychologically safe to speak up</div></div>
+  <div class="culture-stat"><div class="culture-stat-num">55%</div><div class="culture-stat-label">higher employee retention in teams that celebrate people as whole humans, not just role-holders</div></div>
+</div>
+
+<!-- 01 PSYCHOLOGICAL SAFETY -->
+<section id="safety">
+  <div class="section-tag">01</div>
+  <h2 class="section-title">Psychological<br>Safety</h2>
+  <p class="section-subtitle">Psychological safety means people can speak up early, admit mistakes, disagree openly, and bring new ideas without fear of punishment, embarrassment, or rejection. It is the single biggest predictor of team performance.</p>
+  <div class="intro-strip"><strong>The research is clear:</strong> Google's Project Aristotle studied 180 teams and found that psychological safety was the number one factor separating high-performing teams from average ones — more than talent, experience, or process. You can have the most skilled people in the room and still underperform if they don't feel safe enough to speak.</div>
+
+  <div class="safety-spectrum">
+    <div class="safety-spectrum-label">Where does your team sit on the safety spectrum?</div>
+    <div class="spectrum-bar">
+      <div class="spectrum-item s1"><div class="spectrum-item-label">Silence</div><div class="spectrum-item-text">People know something is wrong but won't say it. Problems hide until they explode.</div></div>
+      <div class="spectrum-item s2"><div class="spectrum-item-label">Performance</div><div class="spectrum-item-text">People only share polished ideas. Mistakes are hidden. Candour is risky.</div></div>
+      <div class="spectrum-item s3"><div class="spectrum-item-label">Contributor</div><div class="spectrum-item-text">People share in their lane. Will speak up if asked. Won't volunteer uncomfortable truths.</div></div>
+      <div class="spectrum-item s4"><div class="spectrum-item-label">Challenger</div><div class="spectrum-item-text">People challenge ideas, question decisions, and admit failures early. Growth happens here.</div></div>
+    </div>
+    <div class="spectrum-arrows"><span>← Unsafe</span><span>← Target zone</span><span>Safe →</span></div>
+  </div>
+
+  <div class="behaviour-grid">
+    <div class="behaviour-card unsafe">
+      <div class="compare-label label-red">✕ &nbsp; What an unsafe team looks like</div>
+      <ul class="bullet-list cross">
+        <li>Mistakes are hidden until they become crises</li>
+        <li>Nobody challenges the leader's ideas in the meeting</li>
+        <li>People agree in the room, then vent privately after</li>
+        <li>New members stay quiet for months, afraid to look inexperienced</li>
+        <li>Problems are dressed up as fine — "we're on track" when you're not</li>
+        <li>Diversity of thought is present but silenced</li>
+      </ul>
+    </div>
+    <div class="behaviour-card safe">
+      <div class="compare-label label-green">✓ &nbsp; What a safe team looks like</div>
+      <ul class="bullet-list check">
+        <li>Someone says "I made a mistake — here's what happened" before being asked</li>
+        <li>People push back on ideas in real time — including the leader's</li>
+        <li>A quiet person in the meeting is invited in, not ignored</li>
+        <li>Disagreement is welcomed and debated, then a decision is made</li>
+        <li>Failures are shared openly as learning, not punished as incompetence</li>
+        <li>Everyone's perspective is visibly shaped by who they are — and that's the point</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px;"><div class="section-tag" style="margin-bottom:20px;">Six things leaders do to build safety</div></div>
+  <div class="leader-acts">
+    <div class="leader-act"><div class="leader-act-icon">🙋</div><div class="leader-act-title">Go first</div><div class="leader-act-desc">Model the behaviour you want. Share your own mistakes, uncertainties, and questions before asking others to. Safety starts at the top.</div><div class="leader-act-script">"I want to share something I got wrong last week and what I learned from it…"</div></div>
+    <div class="leader-act"><div class="leader-act-icon">👂</div><div class="leader-act-title">Respond, don't react</div><div class="leader-act-desc">When someone speaks up, your reaction in that moment determines whether they'll do it again. One dismissive response can silence a person for months.</div><div class="leader-act-script">"That's a really important point — I hadn't thought about it that way. Can you say more?"</div></div>
+    <div class="leader-act"><div class="leader-act-icon">🌀</div><div class="leader-act-title">Separate idea from identity</div><div class="leader-act-desc">Make it clear that challenging an idea is not a personal attack. Disagreement is how good thinking gets better.</div><div class="leader-act-script">"I love that you're pushing on this — let's think through it together."</div></div>
+    <div class="leader-act"><div class="leader-act-icon">🔇</div><div class="leader-act-title">Name the quiet ones</div><div class="leader-act-desc">In meetings, notice who isn't speaking. Draw them in directly — not to put them on the spot, but to signal that their voice matters.</div><div class="leader-act-script">"[Name], you know this area well — what's your read on this?"</div></div>
+    <div class="leader-act"><div class="leader-act-icon">🎯</div><div class="leader-act-title">Reward early warning</div><div class="leader-act-desc">When someone flags a problem early, thank them publicly. Make it clear that raising an issue is the behaviour you want — not hiding it until it's unmanageable.</div><div class="leader-act-script">"I'm really glad you flagged this now — this is exactly the early heads-up we need."</div></div>
+    <div class="leader-act"><div class="leader-act-icon">🎉</div><div class="leader-act-title">Celebrate full-person moments</div><div class="leader-act-desc">Acknowledge people outside their role. Celebrate a personal win, a cultural tradition, a skill nobody knew they had. Belonging is built in these small moments.</div><div class="leader-act-script">"Before we start — [Name] just ran their first marathon. That takes real commitment."</div></div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px;"><div class="section-tag" style="margin-bottom:20px;">Practical ways to build a fun, full-person culture</div></div>
+  <div class="fun-grid">
+    <div class="fun-card"><div class="fun-card-emoji">🎲</div><div class="fun-card-title">Team rituals</div><div class="fun-card-desc">Create recurring moments that have nothing to do with work — a silly weekly question, a meme channel, a "worst idea" brainstorm to warm up meetings.</div><div class="fun-card-example">Example: Start every meeting with "hot take of the week" — one unpopular opinion, totally unrelated to work.</div></div>
+    <div class="fun-card"><div class="fun-card-emoji">🌍</div><div class="fun-card-title">Culture spotlights</div><div class="fun-card-desc">Rotate a 5-minute slot for someone to share something about their background, culture, or identity — a food, a tradition, a story.</div><div class="fun-card-example">Example: Monthly "bring your culture to the table" — someone brings food or shares a tradition and explains its meaning.</div></div>
+    <div class="fun-card"><div class="fun-card-emoji">🏆</div><div class="fun-card-title">Non-work wins</div><div class="fun-card-desc">Start a team channel or meeting segment dedicated to personal wins — hobbies, milestones, things people are proud of that have nothing to do with Enactus.</div><div class="fun-card-example">Example: A #wins channel where someone posts they finally learned to cook pasta from scratch.</div></div>
+    <div class="fun-card"><div class="fun-card-emoji">🔀</div><div class="fun-card-title">Random pair-ups</div><div class="fun-card-desc">Once a month, randomly pair two team members for a 20-minute call. No agenda, no work discussion. Just two people getting to know each other better.</div><div class="fun-card-example">Example: "Tell me something I wouldn't know about you." No prep required.</div></div>
+    <div class="fun-card"><div class="fun-card-emoji">🃏</div><div class="fun-card-title">The user manual</div><div class="fun-card-desc">Ask each member to write a short "how to work with me" doc — communication style, what energises them, what drains them, best time to reach them.</div><div class="fun-card-example">Example: A shared doc with everyone's "manual" — accessible to any teammate who wants to understand someone better.</div></div>
+    <div class="fun-card"><div class="fun-card-emoji">🎤</div><div class="fun-card-title">Story time</div><div class="fun-card-desc">Periodically, give a team member 5 minutes to tell a story — about their life, a formative experience, or what brought them to this team. People connect through narrative.</div><div class="fun-card-example">Example: Before a big sprint, one person shares "why I'm here" — their real reason, not the CV version.</div></div>
+  </div>
+
+  <div class="mantra"><div class="mantra-title">People won't bring their best ideas to a room where they've felt dismissed.</div><div class="mantra-sub">Psychological safety isn't about being nice — it's about creating the conditions where great thinking can actually happen. The most candid team is almost always the highest-performing one.</div></div>
+</section>
+
+<!-- 02 JOURNAL -->
+<section id="journal">
+  <div class="section-tag">02</div>
+  <h2 class="section-title">The Work/Personal<br>Journal</h2>
+  <p class="section-subtitle">A team journal practice isn't a diary — it's a structured weekly habit that turns scattered observations into shared insight. The goal isn't to write more. It's to think better, surface blockers early, and make every week a learning loop.</p>
+  <div class="intro-strip"><strong>The key principle:</strong> Measure the <em>outputs</em> of the journal — ideas surfaced, problems named, experiments tried, lessons learned — not the journal itself. Nobody should feel obligated to write daily or share everything. The four weekly prompts below are the only thing that matters.</div>
+
+  <div class="journal-compare">
+    <div class="journal-compare-card without">
+      <div class="compare-label label-red">✕ &nbsp; Without a journal practice</div>
+      <ul class="bullet-list cross">
+        <li>Good ideas disappear the moment the meeting ends</li>
+        <li>Blockers fester quietly for weeks before anyone names them</li>
+        <li>The same mistakes repeat each semester with no institutional learning</li>
+        <li>Reflection only happens when things go wrong — never as routine</li>
+        <li>Team members feel like they're executing, not growing</li>
+      </ul>
+    </div>
+    <div class="journal-compare-card with">
+      <div class="compare-label label-green">✓ &nbsp; With a journal practice</div>
+      <ul class="bullet-list check">
+        <li>Ideas are captured in the moment and surfaced at the right time</li>
+        <li>Blockers are named early — before they become crises</li>
+        <li>Learning compounds across the semester and carries over to the next</li>
+        <li>Reflection is a weekly habit, not a crisis response</li>
+        <li>Team members feel like they're building something, not just doing tasks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px;"><div class="section-tag" style="margin-bottom:20px;">The four weekly prompts</div></div>
+  <div class="journal-prompts">
+    <div class="journal-prompt p1">
+      <div class="journal-prompt-num">1</div>
+      <div class="journal-prompt-badge">Prompt 01</div>
+      <div class="journal-prompt-q">One idea worth exploring</div>
+      <div class="journal-prompt-why">Forces people to stay in a generative mindset — not just executing, but noticing what could be better, different, or new. Over time, this builds a culture that generates ideas constantly rather than waiting for a dedicated brainstorm session.</div>
+      <div class="journal-prompt-example">"What if we ran the event as a pop-up instead of booking a fixed venue? Lower cost, more visible, easier to promote."</div>
+    </div>
+    <div class="journal-prompt p2">
+      <div class="journal-prompt-num">2</div>
+      <div class="journal-prompt-badge">Prompt 02</div>
+      <div class="journal-prompt-q">One problem noticed</div>
+      <div class="journal-prompt-why">Gives people a structured, safe place to name friction without it feeling like a complaint or criticism. Named problems are solvable. Unnamed ones compound. This prompt makes early warning the norm, not the exception.</div>
+      <div class="journal-prompt-example">"Noticed that our weekly check-ins start 10 minutes late every time — draining 40 minutes of collective time per month."</div>
+    </div>
+    <div class="journal-prompt p3">
+      <div class="journal-prompt-num">3</div>
+      <div class="journal-prompt-badge">Prompt 03</div>
+      <div class="journal-prompt-q">One experiment to try</div>
+      <div class="journal-prompt-why">Builds a bias toward action and testing over debating and theorising. Framing it as an "experiment" removes the pressure of being right — it just needs to be worth trying. This creates a team that iterates rapidly and learns from doing.</div>
+      <div class="journal-prompt-example">"What if I tried sending the weekly update as a voice note instead of a written message to see if more people actually engage with it?"</div>
+    </div>
+    <div class="journal-prompt p4">
+      <div class="journal-prompt-num">4</div>
+      <div class="journal-prompt-badge">Prompt 04</div>
+      <div class="journal-prompt-q">One thing learned</div>
+      <div class="journal-prompt-why">Closes the learning loop. Without naming what you learned, experience just passes by. This prompt turns every week — even a difficult one — into a source of growth. Over a semester, these accumulate into genuine institutional knowledge.</div>
+      <div class="journal-prompt-example">"Learned that our community partner responds much faster to WhatsApp than email. Switching all communication to WhatsApp going forward."</div>
+    </div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px;"><div class="section-tag" style="margin-bottom:20px;">Measure the outputs — not the journal itself</div></div>
+  <div class="output-grid">
+    <div class="output-card measure">
+      <div class="compare-label label-red">✕ &nbsp; Don't measure these</div>
+      <div class="output-row"><span>✕</span>How many words someone wrote</div>
+      <div class="output-row"><span>✕</span>Whether they journalled every day</div>
+      <div class="output-row"><span>✕</span>How detailed their entries are</div>
+      <div class="output-row"><span>✕</span>Whether they shared personal reflections</div>
+      <div class="output-row"><span>✕</span>The frequency of journalling per week</div>
+    </div>
+    <div class="output-card instead">
+      <div class="compare-label label-green">✓ &nbsp; Measure these instead</div>
+      <div class="output-row"><span>✓</span>Ideas submitted to the team this week</div>
+      <div class="output-row"><span>✓</span>Problems named before they became crises</div>
+      <div class="output-row"><span>✓</span>Experiments attempted and outcomes shared</div>
+      <div class="output-row"><span>✓</span>Learnings that changed how the team works</div>
+      <div class="output-row"><span>✓</span>Growth visible and named across the semester</div>
+    </div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:16px;"><div class="section-tag" style="margin-bottom:16px;">How to embed this into the weekly rhythm</div></div>
+  <div class="weekly-rhythm">
+    <div class="weekly-rhythm-header">Weekly journal rhythm — suggested structure <span class="example-badge">TEMPLATE</span></div>
+    <div class="rhythm-block">
+      <div class="rhythm-time">Monday<br>5 min</div>
+      <div><div class="rhythm-title">Weekly intention</div><div class="rhythm-desc">Before the week starts, each person writes one line: what they want to own this week. Not a task list — one intention.</div><ul class="rhythm-prompts"><li>"This week I want to make a decision I've been putting off."</li><li>"This week I want to actually listen more than I talk in meetings."</li></ul></div>
+    </div>
+    <div class="rhythm-block">
+      <div class="rhythm-time">Mid-week<br>10 min</div>
+      <div><div class="rhythm-title">Quick capture</div><div class="rhythm-desc">Write anything worth capturing — a fleeting idea, a small frustration, something surprising. No format required. Just get it out of your head and into writing before it disappears.</div></div>
+    </div>
+    <div class="rhythm-block">
+      <div class="rhythm-time">Friday<br>15 min</div>
+      <div><div class="rhythm-title">The four prompts</div><div class="rhythm-desc">The core practice. Each person answers all four prompts in whatever order feels natural. This is the only thing that is required.</div><ul class="rhythm-prompts"><li>One idea worth exploring</li><li>One problem noticed</li><li>One experiment to try</li><li>One thing learned</li></ul></div>
+    </div>
+    <div class="rhythm-block">
+      <div class="rhythm-time">Weekly<br>team share</div>
+      <div><div class="rhythm-title">Surface it together</div><div class="rhythm-desc">In the weekly team meeting or async in a shared channel, each person shares one item from their four prompts — the one they most want the team to know.</div><ul class="rhythm-prompts"><li>Keep it to 60 seconds each — this is a signal, not a debrief</li><li>Leader responds to every idea and problem shared</li><li>Track recurring themes — if three people name the same problem, act on it</li></ul></div>
+    </div>
+  </div>
+
+  <div class="mantra"><div class="mantra-title">Reflection isn't a luxury. It's the work.</div><div class="mantra-sub">Teams that never pause to think together keep making the same mistakes faster. Fifteen minutes of structured reflection each week compounds into a measurably smarter, more engaged team by semester's end.</div></div>
+</section>
+
+<!-- 03 AUTONOMY -->
+<section id="autonomy">
+  <div class="section-tag">03</div>
+  <h2 class="section-title">Autonomy with<br>Clear Goals</h2>
+  <p class="section-subtitle">True engagement comes when people own not just the what — but the how and the why. When people understand the purpose behind their work and have freedom in how they pursue it, they stop executing and start leading.</p>
+  <div class="intro-strip"><strong>The distinction:</strong> Autonomy without goals is chaos. Goals without autonomy are micromanagement. The combination — clear destination, free path — is where intrinsic motivation lives. This is what separates a team that does their job from a team that genuinely cares about the outcome.</div>
+
+  <div class="autonomy-levels">
+    <div class="autonomy-level what"><div class="autonomy-level-bg">W</div><div class="autonomy-badge">Level 1 — Basic</div><div class="autonomy-level-title">The What</div><div class="autonomy-level-desc">You tell people what to do. They execute. No context, no choices, no ownership. They're doing a task, not building something.</div><div class="autonomy-level-example">"Post on Instagram three times this week using these captions."</div></div>
+    <div class="autonomy-level how"><div class="autonomy-level-bg">H</div><div class="autonomy-badge">Level 2 — Better</div><div class="autonomy-level-title">The How</div><div class="autonomy-level-desc">You define the outcome. They decide how to get there. More freedom, more creativity, more investment in the result.</div><div class="autonomy-level-example">"We need 500 new followers by end of month — how you get there is up to you."</div></div>
+    <div class="autonomy-level why"><div class="autonomy-level-bg">Y</div><div class="autonomy-badge">Level 3 — Engaged</div><div class="autonomy-level-title">The Why</div><div class="autonomy-level-desc">They understand the mission behind the goal. They own both the approach and the purpose. Now it's personal — not just professional.</div><div class="autonomy-level-example">"Our social growth is what gets us to nationals — you're the person who owns making that happen and I trust your judgment on how."</div></div>
+  </div>
+
+  <div class="autonomy-dial">
+    <div class="dial-label">The autonomy dial — calibrate per person and task</div>
+    <div class="dial-bar">
+      <div class="dial-item d1"><div class="dial-item-label">Tell</div><div class="dial-item-text">Here's exactly what to do and how to do it</div></div>
+      <div class="dial-item d2"><div class="dial-item-label">Sell</div><div class="dial-item-text">Here's what we're doing and why — I'd love your buy-in</div></div>
+      <div class="dial-item d3"><div class="dial-item-label">Consult</div><div class="dial-item-text">Here's the goal — what approach would you take?</div></div>
+      <div class="dial-item d4"><div class="dial-item-label">Agree</div><div class="dial-item-text">Let's define the goal together — you own the execution</div></div>
+      <div class="dial-item d5"><div class="dial-item-label">Delegate</div><div class="dial-item-text">Here's the outcome we need — the rest is yours. Tell me when you need me.</div></div>
+    </div>
+    <div class="dial-arrows"><span>← More direction</span><span>Target zone for engaged teams</span><span>More autonomy →</span></div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px;"><div class="section-tag" style="margin-bottom:20px;">How to give autonomy without losing direction</div></div>
+  <div class="max-900" style="margin-bottom:40px;">
+    <div class="step-row"><div class="step-row-num">01</div><div><div class="step-row-title">Share the why before the what</div><div class="step-row-desc">Before assigning any task, explain why it matters — to the team, to the mission, to the person receiving it. A task without context is just labour. A task with context is a contribution. People work harder when they understand the impact of their effort.</div><div class="step-row-example">"The reason this event matters is that it's our biggest community touchpoint this semester — and the coverage it gets could shape our pitch for nationals."</div></div></div>
+    <div class="step-row"><div class="step-row-num">02</div><div><div class="step-row-title">Define the destination, not the path</div><div class="step-row-desc">Set a clear outcome then step back and let them figure out how to get there. Resist the urge to prescribe the method. If their approach would genuinely cause harm, speak up. If it's just different from how you'd do it, let it run.</div><div class="step-row-example">"The outcome I need is 30 registered participants by Friday. How you get there is completely up to you."</div></div></div>
+    <div class="step-row"><div class="step-row-num">03</div><div><div class="step-row-title">Calibrate autonomy to the person</div><div class="step-row-desc">Autonomy isn't one-size-fits-all. A new team member needs more structure. A Type A player needs almost none. Use the autonomy dial based on experience, task risk, and individual readiness. Move people up the dial over time.</div><div class="step-row-example">New member, low-risk task: consult. Experienced member, high-stakes deliverable: agree. Type A player, core responsibility: delegate.</div></div></div>
+    <div class="step-row"><div class="step-row-num">04</div><div><div class="step-row-title">Build in check-in points, not check-up points</div><div class="step-row-desc">Autonomy doesn't mean disappearing. Set clear moments to connect — not to check whether they've done the work, but to see if they've hit a blocker or want a sounding board. The check-in is support, not surveillance.</div><div class="step-row-example">"Let's connect Thursday to see if you've hit any blockers. Otherwise I trust you've got it."</div></div></div>
+    <div class="step-row"><div class="step-row-num">05</div><div><div class="step-row-title">Debrief outcomes, not just results</div><div class="step-row-desc">After work is done — especially when it goes wrong — talk about what they decided and why, not just whether the outcome was good or bad. This builds judgment, not just compliance.</div><div class="step-row-example">"Walk me through the decisions you made along the way. What would you do differently? What are you proud of?"</div></div></div>
+  </div>
+
+  <div class="diverse-box">
+    <div class="diverse-box-header">🌍 &nbsp; Autonomy in diverse teams — what to watch for</div>
+    <div class="diverse-box-body">
+      <div class="diverse-grid">
+        <div>
+          <div class="diverse-col-title">Cultural differences in autonomy</div>
+          <ul class="bullet-list arrow">
+            <li>Some cultures are raised to defer to authority — autonomy can feel uncomfortable or disrespectful without explicit permission to take it</li>
+            <li>Some team members may need to be explicitly told "I want your opinion, not just your compliance" before they'll give it</li>
+            <li>People used to being underestimated may not volunteer ideas until genuinely invited — once</li>
+            <li>The loudest voice isn't always the best idea — create structure that lets all contributions surface (written input, rotating voices, anonymous brainstorms)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="diverse-col-title">Building inclusive autonomy</div>
+          <ul class="bullet-list arrow">
+            <li>Ask people individually what level of autonomy feels right for them right now — don't assume</li>
+            <li>Watch for who is defaulting to waiting and actively invite them in — not as a spotlight, but as a genuine pull</li>
+            <li>Rotate ownership of visible tasks so autonomy is distributed, not concentrated in the most confident members</li>
+            <li>Celebrate different approaches — when two people solve the same problem differently and both work, say so. Diversity of method is a feature.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px;"><div class="section-tag" style="margin-bottom:20px;">Phrases that build autonomy — and ones that destroy it</div></div>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-title">Autonomy-building language</div>
+      <div class="trust-desc">What you say shapes how much freedom people feel to act. These phrases signal trust and create space for initiative.</div>
+      <ul class="bullet-list arrow" style="margin-top:14px;">
+        <li>"I trust your judgment on this — you know it better than I do."</li>
+        <li>"Tell me what you're thinking and let's pressure-test it together."</li>
+        <li>"If you hit a wall, I'm here — otherwise go for it."</li>
+        <li>"What do you think the right call is here?"</li>
+        <li>"The outcome I need is X — how you get there is yours to decide."</li>
+      </ul>
+    </div>
+    <div class="trust-card">
+      <div class="trust-title">Autonomy-destroying language</div>
+      <div class="trust-desc">These phrases signal that autonomy is theoretical — that decisions ultimately come back to the leader regardless.</div>
+      <ul class="bullet-list cross" style="margin-top:14px;">
+        <li>"Run everything by me before you do anything."</li>
+        <li>"That's not how I would have done it." (with no further dialogue)</li>
+        <li>"Why didn't you just ask me first?"</li>
+        <li>"Next time, check with me before making that call."</li>
+        <li>"Let me think about it" — said to a decision they should be making themselves.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="max-width:900px; margin-bottom:20px; margin-top:40px;"><div class="section-tag" style="margin-bottom:20px;">Common mistakes with autonomy</div></div>
+  <div class="pitfall-grid" style="max-width:900px;">
+    <div class="pitfall-card"><div class="pitfall-title">Autonomy without clarity</div><div class="pitfall-desc">Telling someone "you own this" without a clear outcome isn't empowerment — it's abandonment. Always pair autonomy with a clear destination.</div></div>
+    <div class="pitfall-card"><div class="pitfall-title">Giving autonomy then taking it back</div><div class="pitfall-desc">If someone makes a decision you disagree with, overriding it — especially publicly — destroys trust faster than never giving it. Debrief after, don't override during.</div></div>
+    <div class="pitfall-card"><div class="pitfall-title">Same level for everyone</div><div class="pitfall-desc">A new member given full autonomy too early can feel lost. A highly experienced player given none feels patronised. Calibrate the dial per person, per task, per moment.</div></div>
+    <div class="pitfall-card"><div class="pitfall-title">Confusing busy-ness with engagement</div><div class="pitfall-desc">A team that's always busy isn't necessarily engaged. Engaged people care about what they're building, not just how much they're doing. Autonomy is the bridge between the two.</div></div>
+  </div>
+
+  <div class="mantra" style="margin-top:40px;"><div class="mantra-title">The goal isn't a team that does what you say. It's a team that does the right thing when you're not there.</div><div class="mantra-sub">Autonomy with clear goals is how you build a team that doesn't need you to function — and that's the highest compliment a leader can receive.</div></div>
+</section>
+
+<div class="page-footer">
+  <div><div class="footer-label">You're done with Engagement</div><a href="index.html" class="footer-back-btn">Back to Full Playbook</a></div>
+  <div class="footer-date">Enactus Leadership Summit · May 2026</div>
+</div>
+
+</body>
+</html>
